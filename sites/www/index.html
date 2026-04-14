@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>YouTube - Broadcast Yourself.</title>
+<link href="styles.css" rel="stylesheet" type="text/css">
+</head>
+
+
+<body>
+
+<table width="720" bgcolor="#FFFFFF" align="center" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td bgcolor="#999999"><img src="img/box_tl.gif" width="10" height="10"></td>
+		<td colspan="3"><img src="img/box_top.gif" width="700" height="10"></td>
+		<td bgcolor="#999999"><img src="img/box_tr.gif" width="10" height="10"></td>
+	</tr>
+	<tr>
+		<td><img src="img/box_lside.gif" width="10" height="72"></td>
+		<td width="700" colspan="3"><table width="700" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td rowspan="2"><a href="index.php"><img src="img/logo.gif" width="154" height="72" border="0"></a></td>
+					<td colspan="4"><img src="img/tab_tspace.gif" width="394" height="34" border="0"></td>
+										
+						<td><a href="signup.php"><img src="img/link_signup.gif" width="94" height="34" border="0"></a></td>
+					
+										<td><a href="help.php"><img src="img/link_help.gif" width="58" height="34" border="0"></a></td>
+				</tr>
+				<tr>
+					<td><a href="index.php"><img src="img/tab_home_on.gif" width="69" height="38" border="0"></a></td>
+					<td><a href="my_favorites.php"><img src="img/tab_fav_off.gif" width="111" height="38" border="0" alt="Favorites"></a></td>
+					<td><a href="my_messages.php"><img src="img/tab_mes_off.gif" width="118" height="38" border="0" alt="Messages"></a></td>
+					<td><a href="my_videos.php"><img src="img/tab_vid_off.gif" width="96" height="38" border="0" alt="Videos"></a></td>
+					<td><a href="my_profile.php"><img src="img/tab_pro_off.gif" width="94" height="38" border="0" alt="Profile"></a></td>
+					<td><img src="img/tab_rspace.gif" width="58" height="38"></td>
+				</tr>
+			</table></td>
+		<td><img src="img/box_rside.gif" width="10" height="72"></td>
+	</tr>
+	<tr>
+		<td valign="top"><img src="img/box_point_tlo.gif" width="10" height="40"></td>
+		<td valign="top"><img src="img/box_point_tli.gif" width="28" height="40"></td>
+		<td width="644" align="center">
+		
+
+
+<form method="post" action="index.php">
+<input type="hidden" name="field_command" value="login_submit">
+<br><table bgcolor="#C6DFF1" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td><img src="img/box_login_tl.gif" width="5" height="5"></td>
+		<td><img src="img/pixel.gif" width="1" height="5"></td>
+		<td><img src="img/box_login_tr.gif" width="5" height="5"></td>
+	</tr>
+	<tr>
+		<td><img src="img/pixel.gif" width="5" height="1"></td>
+		<td>
+		<table cellpadding="2" cellspacing="0" border="0">
+			<tr>
+				<td><span class="label">Username:</span></td>
+				<td><input type="text" size="20" name="field_login_username" value=""></td>
+				<td>&nbsp;</td>
+				<td><span class="label">Password:</span></td>
+				<td><input type="password" size="20" name="field_login_password"></td>
+				<td><input type="submit" value="Log In"></td>
+			</tr>
+		</table>
+		</td>
+		<td><img src="img/pixel.gif" width="5" height="1"></td>
+	</tr>
+	<tr>
+		<td><img src="img/box_login_bl.gif" width="5" height="5"></td>
+		<td><img src="img/pixel.gif" width="1" height="5"></td>
+		<td><img src="img/box_login_br.gif" width="5" height="5"></td>
+	</tr>
+</table>
+</form>
+	
+	
+		</td>
+		<td valign="top"><img src="img/box_point_tri.gif" width="28" height="40"></td>
+		<td valign="top"><img src="img/box_point_tro.gif" width="10" height="40"></td>
+	</tr>
+</table>
+
+<table width="720" bgcolor="#FFFFFF" align="center" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td><img src="img/pixel.gif" width="15" height="1"></td>
+		<td width="690">
+<!-- begin dropdown form -->
+
+
+<form method="post" action="index.php">
+<table cellpadding="3" cellspacing="0" border="0" align="center">
+	<tr>
+		<td>I'm a</td>
+		<td><input type="hidden" name="field_command" value="selectvideo_submit">
+			<select size="1" name="field_selectvideo_my_gender" onchange="this.form.submit()">
+			<option value="m"selected>Male</option><option value="f">Female</option>			</select></td>
+		<td>seeking</td>
+		<td>
+			<input type="hidden" name="field_command" value="selectvideo_submit">
+			<select size="1" name="field_selectvideo_gender" onchange="this.form.submit()">
+			<option value="a"selected>Everyone</option><option value="m">Males</option><option value="f">Females</option>			</select>
+		</td>
+		<td>between</td>
+		<td>
+			<select size="1" name="field_selectvideo_agemin" onchange="this.form.submit()">
+			<option value="18"selected>18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option>			</select>
+		</td>
+		<td>and</td>
+		<td>
+			<select size="1" name="field_selectvideo_agemax" onchange="this.form.submit()">
+			<option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45"selected>45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option>			</select>
+		</td>
+	</tr>
+</table></form>
+
+<!-- end dropdown form -->
+
+<table width="690" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td align="center">
+
+				<OBJECT>
+			<PARAM NAME="movie" VALUE="youtube.swf?video_id=LTnHMRwRLrA&video_title=Dr.+J+Reincarnated&video_length=12&user_id=0&my_gender=m&gender=a&age_min=18&age_max=45&counter=1908316035&author_id=4&author_username=Kaizenamazen&author_profile=I+like+videos.++When+I%27m+not+watching+videos%2C+I%27m+working%2C+running%2C+eating+out%2C+and+scheming+to+take+over+the+world.++Please+share+your+videos+with+me%21&author_description=Hi%2C+I%27m+Kaizenamazen%21+I%27m+a+26+year+old+straight+male+from+California+&author_lastlogin=13+hours+ago" codebase="http://download.macromedia.com/"  WIDTH="690" HEIGHT="475" id="player">
+			<PARAM NAME="quality" VALUE="high">
+			<PARAM NAME="bgcolor" VALUE="#FFFFFF">
+			<EMBED src="youtube.swf?video_id=LTnHMRwRLrA&video_title=Dr.+J+Reincarnated&video_length=12&user_id=0&my_gender=m&gender=a&age_min=18&age_max=45&counter=1908316035&author_id=4&author_username=Kaizenamazen&author_profile=I+like+videos.++When+I%27m+not+watching+videos%2C+I%27m+working%2C+running%2C+eating+out%2C+and+scheming+to+take+over+the+world.++Please+share+your+videos+with+me%21&author_description=Hi%2C+I%27m+Kaizenamazen%21+I%27m+a+26+year+old+straight+male+from+California+&author_lastlogin=13+hours+ago" quality="high" bgcolor="#FFFFFF" WIDTH="690" HEIGHT="475" NAME="player" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer">
+		</OBJECT>
+		
+				
+		</td>
+	</tr>
+</table>
+
+		</td>
+		<td><img src="img/pixel.gif" width="15" height="1"></td>
+	</tr>
+</table>
+
+<table width="720" bgcolor="#FFFFFF" align="center" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td><img src="img/box_bottom.gif" width="720" height="62"></td>
+	</tr>
+</table>
+
+<br><table width="720" bgcolor="#CCCCCC" align="center" cellpadding="7" cellspacing="1" border="0">
+	<tr>
+		<td align="center" bgcolor="#AAAAAA"><span class="footer"><a href="about.php">About Us</a> | <a href="terms.php">Terms of Use</a> | <a href="privacy.php">Privacy Policy</a> | Copyright &copy; 2005 YouTube, LLC&#8482;</span></td>
+	</tr>
+</table>
+
+</body>
+</html>

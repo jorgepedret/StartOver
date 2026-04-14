@@ -18,7 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR   = path.join(__dirname, 'sites');
 const PROGRESS_FILE = path.join(__dirname, 'crawl-progress.json');
 const LOG_FILE     = path.join(__dirname, 'crawl.log');
-const DELAY_MS     = 1200;   // ms between requests (be nice to archive.org)
+const DELAY_MS     = 2000;   // ms between requests (be nice to archive.org)
 const RETRY_LIMIT  = 3;
 const RETRY_DELAY  = 5000;   // ms before retry
 
@@ -43,12 +43,11 @@ async function getLatestSnapshot(domain) {
     `http://web.archive.org/cdx/search/cdx` +
     `?url=${encodeURIComponent(domain)}` +
     `&output=json` +
-    `&limit=1` +
+    `&limit=-1` +
     `&fl=timestamp,original,statuscode` +
-    `&filter=statuscode:200` +
-    `&fastLatest=true`;
+    `&filter=statuscode:200`;
 
-  const res = await fetch(cdxUrl, { signal: AbortSignal.timeout(15000) });
+  const res = await fetch(cdxUrl, { signal: AbortSignal.timeout(30000) });
   if (!res.ok) throw new Error(`CDX API HTTP ${res.status}`);
   const rows = await res.json();
 
@@ -67,7 +66,7 @@ async function getLatestSnapshot(domain) {
 async function fetchArchivedHtml(timestamp, original) {
   const url = `https://web.archive.org/web/${timestamp}id_/${original}`;
   const res = await fetch(url, {
-    signal: AbortSignal.timeout(30000),
+    signal: AbortSignal.timeout(60000),
     headers: {
       'User-Agent': 'WaybackRecovery/1.0 (archival recovery project)',
     },
@@ -111,8 +110,10 @@ async function fetchWithRetry(domain) {
 // ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   const domainsFile = process.argv[2];
+  const refreshMode = process.argv.includes('--refresh');
+
   if (!domainsFile) {
-    console.error('Usage: node crawl.mjs domains.txt');
+    console.error('Usage: node crawl.mjs domains.txt [--refresh]');
     process.exit(1);
   }
 
@@ -139,7 +140,7 @@ async function main() {
   const domains = entries.map(e => e.domain);
   const titleMap = Object.fromEntries(entries.map(e => [e.domain, e.title]));
 
-  await log(`Loaded ${domains.length} domains`);
+  await log(`Loaded ${domains.length} domains${refreshMode ? ' [REFRESH MODE — checking for newer snapshots]' : ''}`);
 
   // Load or init progress
   let progress = {};
@@ -152,19 +153,36 @@ async function main() {
 
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
 
-  let success = 0, skipped = 0, errors = 0, noSnapshot = 0;
+  let success = 0, skipped = 0, updated = 0, errors = 0, noSnapshot = 0;
 
   for (let i = 0; i < domains.length; i++) {
     const domain = domains[i];
-    const slug = domain.split('.')[0]; // "100milliondollars" from "100milliondollars.mystrikingly.com"
+    const slug = domain.split('.')[0];
+    const existing = progress[domain];
 
-    // Resume: skip already done
-    if (progress[domain]?.status === 'ok') {
+    // Normal mode: skip already done
+    if (!refreshMode && existing?.status === 'ok') {
       skipped++;
       continue;
     }
 
-    await log(`[${i + 1}/${domains.length}] ${domain} → sites/${slug}/`);
+    // Refresh mode: check CDX for newer timestamp before fetching
+    if (refreshMode && existing?.status === 'ok') {
+      try {
+        const snapshot = await getLatestSnapshot(domain);
+        if (!snapshot || snapshot.timestamp === existing.timestamp) {
+          skipped++;
+          await sleep(300); // small delay even on skips
+          continue;
+        }
+        await log(`[${i + 1}/${domains.length}] ${domain} — newer snapshot found (${existing.timestamp} → ${snapshot.timestamp})`);
+      } catch {
+        skipped++;
+        continue;
+      }
+    } else {
+      await log(`[${i + 1}/${domains.length}] ${domain} → sites/${slug}/`);
+    }
 
     const result = await fetchWithRetry(domain);
 
@@ -180,7 +198,7 @@ async function main() {
       );
 
       progress[domain] = { status: 'ok', slug, timestamp: result.snapshot.timestamp };
-      success++;
+      if (refreshMode) updated++; else success++;
     } else if (result.status === 'no_snapshot') {
       await log(`  No snapshot found for ${domain}`, 'WARN');
       progress[domain] = { status: 'no_snapshot' };
@@ -198,7 +216,7 @@ async function main() {
   }
 
   await log('─────────────────────────────────────────');
-  await log(`Done! ✓ Success: ${success}  ⏭ Skipped: ${skipped}  ✗ Errors: ${errors}  ∅ No snapshot: ${noSnapshot}`);
+  await log(`Done! ✓ New: ${success}  ↑ Updated: ${updated}  ⏭ Skipped: ${skipped}  ✗ Errors: ${errors}  ∅ No snapshot: ${noSnapshot}`);
 }
 
 main().catch(err => {

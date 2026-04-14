@@ -323,8 +323,13 @@ async function main() {
         <span class="dim">.world</span>
       </h1>
       <p class="subtitle">
-        A cloud of ${ok} recovered websites from the Possibility Management &amp;
-        StartOver.xyz gameworld — archived and restored.
+        No matter what has happened to you, or where you are, you can start over.
+        <br>
+        No one can start over for you.
+        <br>
+        More interestingly...
+        <br>
+        No one can stop you from starting over.
       </p>
     </header>
 
