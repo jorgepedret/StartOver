@@ -64,7 +64,7 @@ async function main() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StartOver.world — Spaceport</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -126,8 +126,8 @@ async function main() {
     }
 
     h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(48px, 8vw, 96px);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(48px, 12vw, 200px);
       font-weight: 800;
       line-height: 0.9;
       letter-spacing: -0.02em;
@@ -160,7 +160,7 @@ async function main() {
     }
 
     .stat-number {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Barlow Condensed', sans-serif;
       font-size: 28px;
       font-weight: 800;
       color: var(--accent);
@@ -267,7 +267,7 @@ async function main() {
     }
 
     .card-title {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Barlow Condensed', sans-serif;
       font-size: 15px;
       font-weight: 600;
       color: var(--text);
