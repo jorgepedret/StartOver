@@ -1,7 +1,7 @@
 # StartOver.world — StartOver.xyz Archive Recovery Project
 
 **Live site:** [https://startover.world](https://startover.world)
-**Server:** Hostinger VPS — `62.72.16.232`
+**Server:** Hostinger VPS
 **Domain registrar:** Porkbun
 
 ---
@@ -23,7 +23,7 @@ The root domain [startover.world](https://startover.world) serves as a **Spacepo
 ## Project Structure
 
 ```
-startover-recovery/
+StartOver/
 ├── all_links.md          # Master list of 727 domains + titles
 ├── crawl.mjs             # Phase 1: crawl HTML from Wayback Machine
 ├── mirror.mjs            # Phase 2: full asset mirror via wget
@@ -112,8 +112,6 @@ Works natively in Chrome and Firefox on macOS — no `/etc/hosts` edits needed.
 | Domain | `startover.world` — registered at Porkbun |
 | DNS | Porkbun — wildcard `A *` record → `62.72.16.232` |
 | SSL | Let's Encrypt wildcard cert via Certbot (expires 2026-07-13) |
-| Sites directory | `/var/www/startover/sites/` |
-| nginx config | `/etc/nginx/sites-available/startover` |
 
 **SSL renewal reminder:** The wildcard cert was issued manually and does not auto-renew. Set a calendar reminder before **2026-07-13** and re-run:
 ```bash
