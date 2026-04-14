@@ -62,7 +62,7 @@
   "3cells.mystrikingly.com": {
     "status": "ok",
     "slug": "3cells",
-    "timestamp": "20200813211625"
+    "timestamp": "20250715045103"
   },
   "3domainsoflove.mystrikingly.com": {
     "status": "ok",
@@ -72,7 +72,7 @@
   "3games.mystrikingly.com": {
     "status": "ok",
     "slug": "3games",
-    "timestamp": "20190916004620"
+    "timestamp": "20250906140601"
   },
   "3phasehealing.mystrikingly.com": {
     "status": "ok",
@@ -137,7 +137,7 @@
   "5bodies.mystrikingly.com": {
     "status": "ok",
     "slug": "5bodies",
-    "timestamp": "20190823184415"
+    "timestamp": "20250809154726"
   },
   "5controls.mystrikingly.com": {
     "status": "ok",
@@ -190,7 +190,7 @@
   "agreement.mystrikingly.com": {
     "status": "ok",
     "slug": "agreement",
-    "timestamp": "20220609111738"
+    "timestamp": "20250325191501"
   },
   "alamab.mystrikingly.com": {
     "status": "ok",
@@ -236,7 +236,7 @@
   "archaneducation.com": {
     "status": "ok",
     "slug": "archaneducation",
-    "timestamp": "20250915154236"
+    "timestamp": "20260306083734"
   },
   "archangoodnews.mystrikingly.com": {
     "status": "ok",
@@ -256,7 +256,7 @@
   "archanlaw.mystrikingly.com": {
     "status": "ok",
     "slug": "archanlaw",
-    "timestamp": "20240721044915"
+    "timestamp": "20250810005821"
   },
   "archanpermaculture.mystrikingly.com": {
     "status": "ok",
@@ -291,7 +291,7 @@
   "archetypallove.mystrikingly.com": {
     "status": "ok",
     "slug": "archetypallove",
-    "timestamp": "20190819214045"
+    "timestamp": "20250505050428"
   },
   "archhouse.mystrikingly.com": {
     "status": "ok",
@@ -316,7 +316,7 @@
   "archiarchalmen.mystrikingly.com": {
     "status": "ok",
     "slug": "archiarchalmen",
-    "timestamp": "20220625112557"
+    "timestamp": "20250421151240"
   },
   "archiarchalmusic.mystrikingly.com": {
     "status": "ok",
@@ -381,7 +381,7 @@
   "assholetraining.mystrikingly.com": {
     "status": "ok",
     "slug": "assholetraining",
-    "timestamp": "20190922084636"
+    "timestamp": "20250717035735"
   },
   "assumptions.mystrikingly.com": {
     "status": "ok",
@@ -391,7 +391,7 @@
   "authority.mystrikingly.com": {
     "status": "ok",
     "slug": "authority",
-    "timestamp": "20190917072428"
+    "timestamp": "20250514012911"
   },
   "awe.mystrikingly.com": {
     "status": "ok",
@@ -446,7 +446,7 @@
   "becomeaspace.mystrikingly.com": {
     "status": "ok",
     "slug": "becomeaspace",
-    "timestamp": "20190822101525"
+    "timestamp": "20250619103126"
   },
   "becomeauthentic.mystrikingly.com": {
     "status": "ok",
@@ -461,12 +461,12 @@
   "becomecentered.mystrikingly.com": {
     "status": "ok",
     "slug": "becomecentered",
-    "timestamp": "20190825045812"
+    "timestamp": "20250908112538"
   },
   "becomegaia.mystrikingly.com": {
     "status": "ok",
     "slug": "becomegaia",
-    "timestamp": "20190823160734"
+    "timestamp": "20250504164417"
   },
   "becomegrounded.mystrikingly.com": {
     "status": "ok",
@@ -476,12 +476,10 @@
   "becomemagic.mystrikingly.com": {
     "status": "ok",
     "slug": "becomemagic",
-    "timestamp": "20190921012410"
+    "timestamp": "20250504192529"
   },
   "becomemeditation.mystrikingly.com": {
-    "status": "ok",
-    "slug": "becomemeditation",
-    "timestamp": "20191222233530"
+    "status": "no_snapshot"
   },
   "becomemoney.mystrikingly.com": {
     "status": "ok",
@@ -554,7 +552,7 @@
   "boxandbeing.mystrikingly.com": {
     "status": "ok",
     "slug": "boxandbeing",
-    "timestamp": "20190818171054"
+    "timestamp": "20250514045540"
   },
   "boxisoptional.mystrikingly.com": {
     "status": "ok",
@@ -574,7 +572,7 @@
   "bridge-house-artchiarchy.mystrikingly.com": {
     "status": "ok",
     "slug": "bridge-house-artchiarchy",
-    "timestamp": "20230927174712"
+    "timestamp": "20250811010801"
   },
   "bridge-house-dandelion.mystrikingly.com": {
     "status": "ok",
@@ -584,7 +582,7 @@
   "bridge-house-devalaya.mystrikingly.com": {
     "status": "ok",
     "slug": "bridge-house-devalaya",
-    "timestamp": "20210924000625"
+    "timestamp": "20250612215918"
   },
   "bridge-house.mystrikingly.com": {
     "status": "ok",
@@ -624,32 +622,30 @@
   "buildmatrix.mystrikingly.com": {
     "status": "ok",
     "slug": "buildmatrix",
-    "timestamp": "20190820205035"
+    "timestamp": "20250807073400"
   },
   "bullshitdetector.mystrikingly.com": {
     "status": "ok",
     "slug": "bullshitdetector",
-    "timestamp": "20191222233650"
+    "timestamp": "20250812234135"
   },
   "callingthebeingthrough.mystrikingly.com": {
     "status": "ok",
     "slug": "callingthebeingthrough",
-    "timestamp": "20240803124925"
+    "timestamp": "20250613222008"
   },
   "caringcommunication.mystrikingly.com": {
     "status": "ok",
     "slug": "caringcommunication",
-    "timestamp": "20220609155019"
+    "timestamp": "20240524174320"
   },
   "cathexis.mystrikingly.com": {
     "status": "ok",
     "slug": "cathexis",
-    "timestamp": "20210421144625"
+    "timestamp": "20250719022826"
   },
   "causeadventure.mystrikingly.com": {
-    "status": "ok",
-    "slug": "causeadventure",
-    "timestamp": "20220609132005"
+    "status": "no_snapshot"
   },
   "causetransformation.mystrikingly.com": {
     "status": "ok",
@@ -757,77 +753,77 @@
   "conclusions.mystrikingly.com": {
     "status": "ok",
     "slug": "conclusions",
-    "timestamp": "20200809105819"
+    "timestamp": "20250812085130"
   },
   "confusion.mystrikingly.com": {
     "status": "ok",
     "slug": "confusion",
-    "timestamp": "20220609121825"
+    "timestamp": "20250809220628"
   },
   "consciousanger.mystrikingly.com": {
     "status": "ok",
     "slug": "consciousanger",
-    "timestamp": "20200408080545"
+    "timestamp": "20250316003643"
   },
   "consciousfear.mystrikingly.com": {
     "status": "ok",
     "slug": "consciousfear",
-    "timestamp": "20200408092530"
+    "timestamp": "20250813133808"
   },
   "consciousfeelings.mystrikingly.com": {
     "status": "ok",
     "slug": "consciousfeelings",
-    "timestamp": "20200408115211"
+    "timestamp": "20250811005104"
   },
   "consciousjoy.mystrikingly.com": {
     "status": "ok",
     "slug": "consciousjoy",
-    "timestamp": "20200408071804"
+    "timestamp": "20250116204353"
   },
   "consciousness.mystrikingly.com": {
     "status": "ok",
     "slug": "consciousness",
-    "timestamp": "20200810102708"
+    "timestamp": "20240916221019"
   },
   "conscioussadness.mystrikingly.com": {
     "status": "ok",
     "slug": "conscioussadness",
-    "timestamp": "20200408095239"
+    "timestamp": "20250117174001"
   },
   "conscioustheater.mystrikingly.com": {
     "status": "ok",
     "slug": "conscioustheater",
-    "timestamp": "20191222233720"
+    "timestamp": "20230629192831"
   },
   "consciouswill.mystrikingly.com": {
     "status": "ok",
     "slug": "consciouswill",
-    "timestamp": "20200408072619"
+    "timestamp": "20240722203426"
   },
   "consequences.mystrikingly.com": {
     "status": "ok",
     "slug": "consequences",
-    "timestamp": "20220609160837"
+    "timestamp": "20250803211736"
   },
   "coolnessfactor.mystrikingly.com": {
     "status": "ok",
     "slug": "coolnessfactor",
-    "timestamp": "20190823051401"
+    "timestamp": "20250710081826"
   },
   "crackincertainty.mystrikingly.com": {
     "status": "ok",
     "slug": "crackincertainty",
-    "timestamp": "20200814145536"
+    "timestamp": "20250812181753"
   },
   "createanexpandthebox.mystrikingly.com": {
     "status": "ok",
     "slug": "createanexpandthebox",
-    "timestamp": "20190826033819"
+    "timestamp": "20250613041033"
   },
   "createpossibility.mystrikingly.com": {
     "status": "ok",
     "slug": "createpossibility",
-    "timestamp": "20190917021153"
+    "timestamp": "20250905125139"
   },
   "creation.mystrikingly.com": {
     "status": "ok",
@@ -837,52 +833,52 @@
   "creativecollaboration.mystrikingly.com": {
     "status": "ok",
     "slug": "creativecollaboration",
-    "timestamp": "20220609121910"
+    "timestamp": "20250720033017"
   },
   "creativecommons.org": {
     "status": "ok",
     "slug": "creativecommons",
-    "timestamp": "20020208092153"
+    "timestamp": "20260412163820"
   },
   "culturalcreatives.mystrikingly.com": {
     "status": "ok",
     "slug": "culturalcreatives",
-    "timestamp": "20220520110054"
+    "timestamp": "20240225204320"
   },
   "culturetoculture.mystrikingly.com": {
     "status": "ok",
     "slug": "culturetoculture",
-    "timestamp": "20190818133738"
+    "timestamp": "20250617111759"
   },
   "dandelion.mystrikingly.com": {
     "status": "ok",
     "slug": "dandelion",
-    "timestamp": "20250326190035"
+    "timestamp": "20250907120941"
   },
   "darkmattertherapy.mystrikingly.com": {
     "status": "ok",
     "slug": "darkmattertherapy",
-    "timestamp": "20200408104302"
+    "timestamp": "20240228191310"
   },
   "debaptizeyourself.mystrikingly.com": {
     "status": "ok",
     "slug": "debaptizeyourself",
-    "timestamp": "20240715071346"
+    "timestamp": "20241006095652"
   },
   "debarrierize.mystrikingly.com": {
     "status": "ok",
     "slug": "debarrierize",
-    "timestamp": "20241207062944"
+    "timestamp": "20250907061605"
   },
   "deciding.mystrikingly.com": {
     "status": "ok",
     "slug": "deciding",
-    "timestamp": "20200807114054"
+    "timestamp": "20250716172814"
   },
   "declaring.mystrikingly.com": {
     "status": "ok",
     "slug": "declaring",
-    "timestamp": "20191222233750"
+    "timestamp": "20250613152728"
   },
   "deconstellation.mystrikingly.com": {
     "status": "ok",
@@ -902,22 +898,22 @@
   "decontaminations.mystrikingly.com": {
     "status": "ok",
     "slug": "decontaminations",
-    "timestamp": "20211206002542"
+    "timestamp": "20250127195153"
   },
   "decontaminatortraining.mystrikingly.com": {
     "status": "ok",
     "slug": "decontaminatortraining",
-    "timestamp": "20211130210053"
+    "timestamp": "20250815151352"
   },
   "demonslayer.mystrikingly.com": {
     "status": "ok",
     "slug": "demonslayer",
-    "timestamp": "20230130173352"
+    "timestamp": "20250905151515"
   },
   "denial.mystrikingly.com": {
     "status": "ok",
     "slug": "denial",
-    "timestamp": "20220518135215"
+    "timestamp": "20250523120013"
   },
   "deterrorizeyourself.mystrikingly.com": {
     "status": "no_snapshot"
@@ -925,12 +921,12 @@
   "devingleeson.mystrikingly.com": {
     "status": "ok",
     "slug": "devingleeson",
-    "timestamp": "20211127231453"
+    "timestamp": "20250614200214"
   },
   "discovering.mystrikingly.com": {
     "status": "ok",
     "slug": "discovering",
-    "timestamp": "20210419151336"
+    "timestamp": "20250612214040"
   },
   "discoverycall.mystrikingly.com": {
     "status": "ok",
@@ -945,22 +941,18 @@
   "disillusionment.mystrikingly.com": {
     "status": "ok",
     "slug": "disillusionment",
-    "timestamp": "20200808064408"
+    "timestamp": "20240303185300"
   },
   "disjointment.mystrikingly.com": {
-    "status": "ok",
-    "slug": "disjointment",
-    "timestamp": "20240113210419"
+    "status": "no_snapshot"
   },
   "diskofnothing.mystrikingly.com": {
     "status": "ok",
     "slug": "diskofnothing",
-    "timestamp": "20190922204301"
+    "timestamp": "20250427195203"
   },
   "distinction.mystrikingly.com": {
-    "status": "ok",
-    "slug": "distinction",
-    "timestamp": "20190818012900"
+    "status": "no_snapshot"
   },
   "distinctionary.mystrikingly.com": {
     "status": "ok",
@@ -1163,69 +1155,65 @@
     "timestamp": "20210924022250"
   },
   "feedbackandcoaching.mystrikingly.com": {
-    "status": "ok",
-    "slug": "feedbackandcoaching",
-    "timestamp": "20250318104437"
+    "status": "no_snapshot"
   },
   "feelingsarchetypes.mystrikingly.com": {
     "status": "ok",
     "slug": "feelingsarchetypes",
-    "timestamp": "20240304054314"
+    "timestamp": "20240308123950"
   },
   "feelingscycle.mystrikingly.com": {
     "status": "ok",
     "slug": "feelingscycle",
-    "timestamp": "20220609160142"
+    "timestamp": "20250814073056"
   },
   "feelingsdetector.mystrikingly.com": {
     "status": "ok",
     "slug": "feelingsdetector",
-    "timestamp": "20200814041519"
+    "timestamp": "20250908091706"
   },
   "feelingspractitioner.com": {
     "status": "ok",
     "slug": "feelingspractitioner",
-    "timestamp": "20150825015020"
+    "timestamp": "20230329225202"
   },
   "feelingspractitioner.org": {
     "status": "ok",
     "slug": "feelingspractitioner",
-    "timestamp": "20250311091732"
+    "timestamp": "20260210201657"
   },
   "finishbeingborn.mystrikingly.com": {
     "status": "ok",
     "slug": "finishbeingborn",
-    "timestamp": "20220610101729"
+    "timestamp": "20250317082248"
   },
   "firstposition.mystrikingly.com": {
     "status": "ok",
     "slug": "firstposition",
-    "timestamp": "20191222233936"
+    "timestamp": "20250516052158"
   },
   "floorprocesses.mystrikingly.com": {
     "status": "ok",
     "slug": "floorprocesses",
-    "timestamp": "20200918133331"
+    "timestamp": "20250421175304"
   },
   "flowpower.mystrikingly.com": {
     "status": "ok",
     "slug": "flowpower",
-    "timestamp": "20201101014038"
+    "timestamp": "20250619224826"
   },
   "fluxpoint.mystrikingly.com": {
-    "status": "ok",
-    "slug": "fluxpoint",
-    "timestamp": "20210421040121"
+    "status": "no_snapshot"
   },
   "flyingschool.mystrikingly.com": {
     "status": "ok",
     "slug": "flyingschool",
-    "timestamp": "20190915180719"
+    "timestamp": "20250720100111"
   },
   "foreverything.mystrikingly.com": {
     "status": "ok",
     "slug": "foreverything",
-    "timestamp": "20240907235234"
+    "timestamp": "20250318201535"
   },
   "frauendererde.mystrikingly.com": {
     "status": "no_snapshot"
@@ -1233,12 +1221,12 @@
   "freeandnaturaladult.mystrikingly.com": {
     "status": "ok",
     "slug": "freeandnaturaladult",
-    "timestamp": "20220609111703"
+    "timestamp": "20250809234122"
   },
   "fryingpan.mystrikingly.com": {
     "status": "ok",
     "slug": "fryingpan",
-    "timestamp": "20200408101307"
+    "timestamp": "20250212114454"
   },
   "gaiaishiring.org": {
     "status": "no_snapshot"
@@ -1246,7 +1234,7 @@
   "gaiangameworlds.mystrikingly.com": {
     "status": "ok",
     "slug": "gaiangameworlds",
-    "timestamp": "20210511112333"
+    "timestamp": "20250516192403"
   },
   "gaianmensbridghouse.mystrikingly.com": {
     "status": "no_snapshot"
@@ -1254,57 +1242,55 @@
   "gaianroadteam.mystrikingly.com": {
     "status": "ok",
     "slug": "gaianroadteam",
-    "timestamp": "20210417235616"
+    "timestamp": "20250519210907"
   },
   "gaias.mystrikingly.com": {
     "status": "ok",
     "slug": "gaias",
-    "timestamp": "20190922103520"
+    "timestamp": "20250717130334"
   },
   "gaiaversity.com": {
     "status": "ok",
     "slug": "gaiaversity",
-    "timestamp": "20180825071926"
+    "timestamp": "20260216023852"
   },
   "gaiavillage.mystrikingly.com": {
     "status": "ok",
     "slug": "gaiavillage",
-    "timestamp": "20221201062319"
+    "timestamp": "20250318164305"
   },
   "gameover.mystrikingly.com": {
     "status": "ok",
     "slug": "gameover",
-    "timestamp": "20190922182632"
+    "timestamp": "20250321132227"
   },
   "gameworldbuilder.mystrikingly.com": {
     "status": "ok",
     "slug": "gameworldbuilder",
-    "timestamp": "20191222234001"
+    "timestamp": "20250624223732"
   },
   "gameworldbuilderschool.mystrikingly.com": {
     "status": "ok",
     "slug": "gameworldbuilderschool",
-    "timestamp": "20241114095054"
+    "timestamp": "20250524181828"
   },
   "gameworldconsulting.mystrikingly.com": {
     "status": "ok",
     "slug": "gameworldconsulting",
-    "timestamp": "20220609112406"
+    "timestamp": "20250522033104"
   },
   "gameworlddemolition.mystrikingly.com": {
-    "status": "ok",
-    "slug": "gameworlddemolition",
-    "timestamp": "20250323101923"
+    "status": "no_snapshot"
   },
   "gameworldincubator.mystrikingly.com": {
     "status": "ok",
     "slug": "gameworldincubator",
-    "timestamp": "20211208063518"
+    "timestamp": "20250907015441"
   },
   "gameworldtheory.mystrikingly.com": {
     "status": "ok",
     "slug": "gameworldtheory",
-    "timestamp": "20211130172646"
+    "timestamp": "20250506032627"
   },
   "gameworldtraditions.mystrikingly.com": {
     "status": "ok",
@@ -1314,47 +1300,47 @@
   "gapingameworlds.mystrikingly.com": {
     "status": "ok",
     "slug": "gapingameworlds",
-    "timestamp": "20190921002614"
+    "timestamp": "20250624002730"
   },
   "gapinidentity.mystrikingly.com": {
     "status": "ok",
     "slug": "gapinidentity",
-    "timestamp": "20190920113845"
+    "timestamp": "20230930170102"
   },
   "gapinknowing.mystrikingly.com": {
     "status": "ok",
     "slug": "gapinknowing",
-    "timestamp": "20190916225740"
+    "timestamp": "20250808174047"
   },
   "gapinnoise.mystrikingly.com": {
     "status": "ok",
     "slug": "gapinnoise",
-    "timestamp": "20190915123431"
+    "timestamp": "20250808014016"
   },
   "gapinresonance.mystrikingly.com": {
     "status": "ok",
     "slug": "gapinresonance",
-    "timestamp": "20200812065336"
+    "timestamp": "20250718161906"
   },
   "gapinspace.mystrikingly.com": {
     "status": "ok",
     "slug": "gapinspace",
-    "timestamp": "20190921192021"
+    "timestamp": "20250810152458"
   },
   "gapintime.mystrikingly.com": {
     "status": "ok",
     "slug": "gapintime",
-    "timestamp": "20190917214308"
+    "timestamp": "20250505050248"
   },
   "generalmemetics.mystrikingly.com": {
     "status": "ok",
     "slug": "generalmemetics",
-    "timestamp": "20190822180214"
+    "timestamp": "20250622114302"
   },
   "getoutnow.mystrikingly.com": {
     "status": "ok",
     "slug": "getoutnow",
-    "timestamp": "20190818154730"
+    "timestamp": "20250209084700"
   },
   "gettingoffbraindrugs.mystrikingly.com": {
     "status": "ok",

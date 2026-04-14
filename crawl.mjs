@@ -39,24 +39,31 @@ async function log(msg, level = 'INFO') {
  * Returns { timestamp, original } or null.
  */
 async function getLatestSnapshot(domain) {
-  const cdxUrl =
-    `http://web.archive.org/cdx/search/cdx` +
-    `?url=${encodeURIComponent(domain)}` +
-    `&output=json` +
-    `&limit=-1` +
-    `&fl=timestamp,original,statuscode` +
-    `&filter=statuscode:200`;
+  // Query a specific URL variant (http or https)
+  async function queryCDX(url) {
+    const cdxUrl =
+      `http://web.archive.org/cdx/search/cdx` +
+      `?url=${encodeURIComponent(url)}` +
+      `&output=json` +
+      `&limit=-1` +
+      `&fl=timestamp,original,statuscode` +
+      `&filter=statuscode:200`;
+    const res = await fetch(cdxUrl, { signal: AbortSignal.timeout(30000) });
+    if (!res.ok) return null;
+    const rows = await res.json();
+    if (!rows || rows.length < 2) return null;
+    return { timestamp: rows[rows.length - 1][0], original: rows[rows.length - 1][1] };
+  }
 
-  const res = await fetch(cdxUrl, { signal: AbortSignal.timeout(30000) });
-  if (!res.ok) throw new Error(`CDX API HTTP ${res.status}`);
-  const rows = await res.json();
+  // Try both http and https, return whichever has the newer snapshot
+  const [http, https] = await Promise.all([
+    queryCDX(`http://${domain}/`).catch(() => null),
+    queryCDX(`https://${domain}/`).catch(() => null),
+  ]);
 
-  // rows[0] is the header ["timestamp","original","statuscode"]
-  // rows[1] is the first result (if any)
-  if (!rows || rows.length < 2) return null;
-
-  const [timestamp, original] = rows[1];
-  return { timestamp, original };
+  const candidates = [http, https].filter(Boolean);
+  if (candidates.length === 0) return null;
+  return candidates.reduce((a, b) => a.timestamp > b.timestamp ? a : b);
 }
 
 /**
