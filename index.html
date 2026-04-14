@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StartOver.world — Spaceport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: #1e1e2e;
+      --accent: #7fffb2;
+      --accent2: #ff7f7f;
+      --text: #e8e8f0;
+      --muted: #6060a0;
+      --card-hover: #1a1a2a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(127,255,178,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(127,255,178,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      padding: 80px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    h1 .dim { color: var(--muted); }
+    h1 .bright { color: var(--accent); }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      gap: 32px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Search */
+    .search-wrap {
+      padding: 32px 0 24px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search-inner {
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    #search {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 14px 16px 14px 44px;
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #search:focus {
+      border-color: var(--accent);
+    }
+
+    #search::placeholder { color: var(--muted); }
+
+    .results-count {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 10px;
+      letter-spacing: 0.1em;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      margin-top: 0;
+    }
+
+    .card {
+      background: var(--bg);
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: background 0.15s;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: '→';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%) translateX(8px);
+      color: var(--accent);
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+
+    .card:hover {
+      background: var(--card-hover);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      padding-right: 24px;
+    }
+
+    .card-slug {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .card-slug span {
+      color: var(--accent);
+      opacity: 0.7;
+    }
+
+    /* Hidden card */
+    .card.hidden { display: none; }
+
+    /* Footer */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      margin-top: 0;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .no-results {
+      padding: 80px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 48px 0 32px; }
+      .stats { gap: 20px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="eyebrow">StartOver.xyz — Spaceport</div>
+      <h1>
+        <span class="dim">Start</span><span class="bright">Over</span><br>
+        <span class="dim">.world</span>
+      </h1>
+      <p class="subtitle">
+        A cloud of 247 recovered websites from the Possibility Management &amp;
+        StartOver.xyz gameworld — archived and restored.
+      </p>
+    </header>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number">247</div>
+        <div class="stat-label">Sites Restored</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">285</div>
+        <div class="stat-label">Total Domains</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">38</div>
+        <div class="stat-label">Missing</div>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <div class="container" style="padding:0">
+        <div class="search-inner">
+          <span class="search-icon">⌕</span>
+          <input
+            type="search"
+            id="search"
+            placeholder="Search sites..."
+            autocomplete="off"
+            autofocus
+          >
+        </div>
+        <div class="results-count" id="count">247 sites</div>
+      </div>
+    </div>
+
+    <div class="grid" id="grid">
+      
+      <a class="card" href="https://bridge-housetrainingcenter.startover.world" target="_blank"
+         data-title="(a bridgehouse)"
+         data-slug="bridge-housetrainingcenter">
+        <div class="card-title">(a Bridgehouse)</div>
+        <div class="card-slug"><span>bridge-housetrainingcenter</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bridge-house-dandelion.startover.world" target="_blank"
+         data-title="(brazil)"
+         data-slug="bridge-house-dandelion">
+        <div class="card-title">(Brazil)</div>
+        <div class="card-slug"><span>bridge-house-dandelion</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://cavitationbridgehouse.startover.world" target="_blank"
+         data-title="(crete, greece)"
+         data-slug="cavitationbridgehouse">
+        <div class="card-title">(Crete, Greece)</div>
+        <div class="card-slug"><span>cavitationbridgehouse</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://ecco.startover.world" target="_blank"
+         data-title="(earth coincidence control office)"
+         data-slug="ecco">
+        <div class="card-title">(Earth Coincidence Control Office)</div>
+        <div class="card-slug"><span>ecco</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bridge-house-artchiarchy.startover.world" target="_blank"
+         data-title="(france)"
+         data-slug="bridge-house-artchiarchy">
+        <div class="card-title">(France)</div>
+        <div class="card-slug"><span>bridge-house-artchiarchy</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bridge-house-devalaya.startover.world" target="_blank"
+         data-title="(germany)"
+         data-slug="bridge-house-devalaya">
+        <div class="card-title">(Germany)</div>
+        <div class="card-slug"><span>bridge-house-devalaya</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://beepbook.startover.world" target="_blank"
+         data-title="*beep!* book"
+         data-slug="beepbook">
+        <div class="card-title">*Beep!* Book</div>
+        <div class="card-slug"><span>beepbook</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://1truething.startover.world" target="_blank"
+         data-title="1 true thing"
+         data-slug="1truething">
+        <div class="card-title">1 True Thing</div>
+        <div class="card-slug"><span>1truething</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://100milliondollars.startover.world" target="_blank"
+         data-title="100 million dollars"
+         data-slug="100milliondollars">
+        <div class="card-title">100 Million Dollars</div>
+        <div class="card-slug"><span>100milliondollars</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://122methoden.startover.world" target="_blank"
+         data-title="122 methoden, um gewöhnliche beziehungen zu erstellen"
+         data-slug="122methoden">
+        <div class="card-title">122 Methoden, um gewöhnliche Beziehungen zu erstellen</div>
+        <div class="card-slug"><span>122methoden</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://122ways.startover.world" target="_blank"
+         data-title="122 ways to create ordinary love"
+         data-slug="122ways">
+        <div class="card-title">122 Ways To Create Ordinary Love</div>
+        <div class="card-slug"><span>122ways</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://13tools.startover.world" target="_blank"
+         data-title="13 tools"
+         data-slug="13tools">
+        <div class="card-title">13 Tools</div>
+        <div class="card-slug"><span>13tools</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://18boxes.startover.world" target="_blank"
+         data-title="18 boxes"
+         data-slug="18boxes">
+        <div class="card-title">18 Boxes</div>
+        <div class="card-slug"><span>18boxes</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://18startnow.startover.world" target="_blank"
+         data-title="18 start now"
+         data-slug="18startnow">
+        <div class="card-title">18 Start Now</div>
+        <div class="card-slug"><span>18startnow</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://2rapidlearnings.startover.world" target="_blank"
+         data-title="2 rapid learnings"
+         data-slug="2rapidlearnings">
+        <div class="card-title">2 Rapid Learnings</div>
+        <div class="card-slug"><span>2rapidlearnings</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://27experiments.startover.world" target="_blank"
+         data-title="27 experiments to create extraordinary love"
+         data-slug="27experiments">
+        <div class="card-title">27 Experiments to Create Extraordinary Love</div>
+        <div class="card-slug"><span>27experiments</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://3cells.startover.world" target="_blank"
+         data-title="3 cells"
+         data-slug="3cells">
+        <div class="card-title">3 Cells</div>
+        <div class="card-slug"><span>3cells</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://3domainsoflove.startover.world" target="_blank"
+         data-title="3 domains of love"
+         data-slug="3domainsoflove">
+        <div class="card-title">3 Domains Of Love</div>
+        <div class="card-slug"><span>3domainsoflove</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://3games.startover.world" target="_blank"
+         data-title="3 games"
+         data-slug="3games">
+        <div class="card-title">3 Games</div>
+        <div class="card-slug"><span>3games</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://3worlds.startover.world" target="_blank"
+         data-title="3 worlds"
+         data-slug="3worlds">
+        <div class="card-title">3 Worlds</div>
+        <div class="card-slug"><span>3worlds</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://3zones.startover.world" target="_blank"
+         data-title="3 zones"
+         data-slug="3zones">
+        <div class="card-title">3 Zones</div>
+        <div class="card-slug"><span>3zones</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://3-3-3.startover.world" target="_blank"
+         data-title="3-3-3 initiation"
+         data-slug="3-3-3">
+        <div class="card-title">3-3-3 Initiation</div>
+        <div class="card-slug"><span>3-3-3</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://4brains.startover.world" target="_blank"
+         data-title="4 brains"
+         data-slug="4brains">
+        <div class="card-title">4 Brains</div>
+        <div class="card-slug"><span>4brains</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://4emotions.startover.world" target="_blank"
+         data-title="4 emotions"
+         data-slug="4emotions">
+        <div class="card-title">4 Emotions</div>
+        <div class="card-slug"><span>4emotions</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://4enemies.startover.world" target="_blank"
+         data-title="4 enemies of a possibilitator"
+         data-slug="4enemies">
+        <div class="card-title">4 Enemies of a Possibilitator</div>
+        <div class="card-slug"><span>4enemies</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://4feelings.startover.world" target="_blank"
+         data-title="4 feelings"
+         data-slug="4feelings">
+        <div class="card-title">4 Feelings</div>
+        <div class="card-slug"><span>4feelings</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://4lineages.startover.world" target="_blank"
+         data-title="4 lineages"
+         data-slug="4lineages">
+        <div class="card-title">4 Lineages</div>
+        <div class="card-slug"><span>4lineages</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://5bodies.startover.world" target="_blank"
+         data-title="5 bodies"
+         data-slug="5bodies">
+        <div class="card-title">5 Bodies</div>
+        <div class="card-slug"><span>5bodies</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://5controls.startover.world" target="_blank"
+         data-title="5 controls"
+         data-slug="5controls">
+        <div class="card-title">5 Controls</div>
+        <div class="card-slug"><span>5controls</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://5offers.startover.world" target="_blank"
+         data-title="5 offers"
+         data-slug="5offers">
+        <div class="card-title">5 Offers</div>
+        <div class="card-slug"><span>5offers</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://5phasesofchange.startover.world" target="_blank"
+         data-title="5 phases of change"
+         data-slug="5phasesofchange">
+        <div class="card-title">5 Phases Of Change</div>
+        <div class="card-slug"><span>5phasesofchange</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://50thoughtwareupgrades.startover.world" target="_blank"
+         data-title="50 thoughtware upgrades... to archiarchy"
+         data-slug="50thoughtwareupgrades">
+        <div class="card-title">50 Thoughtware Upgrades... to Archiarchy</div>
+        <div class="card-slug"><span>50thoughtwareupgrades</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://51coreinitiations.startover.world" target="_blank"
+         data-title="51 core initiations"
+         data-slug="51coreinitiations">
+        <div class="card-title">51 Core Initiations</div>
+        <div class="card-slug"><span>51coreinitiations</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://7coreskills.startover.world" target="_blank"
+         data-title="7 core skills"
+         data-slug="7coreskills">
+        <div class="card-title">7 Core Skills</div>
+        <div class="card-slug"><span>7coreskills</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://8prisons.startover.world" target="_blank"
+         data-title="8 prisons"
+         data-slug="8prisons">
+        <div class="card-title">8 Prisons</div>
+        <div class="card-slug"><span>8prisons</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://9gaps.startover.world" target="_blank"
+         data-title="9 gaps"
+         data-slug="9gaps">
+        <div class="card-title">9 Gaps</div>
+        <div class="card-slug"><span>9gaps</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://alifeoflearning.startover.world" target="_blank"
+         data-title="a life of learning"
+         data-slug="alifeoflearning">
+        <div class="card-title">A Life Of Learning</div>
+        <div class="card-slug"><span>alifeoflearning</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://alifeofpractice.startover.world" target="_blank"
+         data-title="a life of practice"
+         data-slug="alifeofpractice">
+        <div class="card-title">A Life Of Practice</div>
+        <div class="card-slug"><span>alifeofpractice</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://accountability.startover.world" target="_blank"
+         data-title="accountability"
+         data-slug="accountability">
+        <div class="card-title">Accountability</div>
+        <div class="card-slug"><span>accountability</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://addicted.startover.world" target="_blank"
+         data-title="addicted"
+         data-slug="addicted">
+        <div class="card-title">Addicted</div>
+        <div class="card-slug"><span>addicted</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://adulthood.startover.world" target="_blank"
+         data-title="adulthood"
+         data-slug="adulthood">
+        <div class="card-title">Adulthood</div>
+        <div class="card-slug"><span>adulthood</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://agreement.startover.world" target="_blank"
+         data-title="agreement"
+         data-slug="agreement">
+        <div class="card-title">Agreement</div>
+        <div class="card-slug"><span>agreement</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://alamab.startover.world" target="_blank"
+         data-title="alamab.mystrikingly.com"
+         data-slug="alamab">
+        <div class="card-title">alamab.mystrikingly.com</div>
+        <div class="card-slug"><span>alamab</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://annechloedestremau.startover.world" target="_blank"
+         data-title="anne-chloé destremau"
+         data-slug="annechloedestremau">
+        <div class="card-title">Anne-Chloé Destremau</div>
+        <div class="card-slug"><span>annechloedestremau</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://apprentice.startover.world" target="_blank"
+         data-title="apprentice"
+         data-slug="apprentice">
+        <div class="card-title">Apprentice</div>
+        <div class="card-slug"><span>apprentice</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archhouse.startover.world" target="_blank"
+         data-title="arch house (a bridgehouse)"
+         data-slug="archhouse">
+        <div class="card-title">Arch House (a Bridgehouse)</div>
+        <div class="card-slug"><span>archhouse</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archthegame.startover.world" target="_blank"
+         data-title="arch the game"
+         data-slug="archthegame">
+        <div class="card-title">Arch The Game</div>
+        <div class="card-slug"><span>archthegame</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archan.startover.world" target="_blank"
+         data-title="archan"
+         data-slug="archan">
+        <div class="card-title">Archan</div>
+        <div class="card-slug"><span>archan</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archaneconomics.startover.world" target="_blank"
+         data-title="archan economics"
+         data-slug="archaneconomics">
+        <div class="card-title">Archan Economics</div>
+        <div class="card-slug"><span>archaneconomics</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archaneducation.startover.world" target="_blank"
+         data-title="archan education"
+         data-slug="archaneducation">
+        <div class="card-title">Archan Education</div>
+        <div class="card-slug"><span>archaneducation</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archangoodnews.startover.world" target="_blank"
+         data-title="archan good news"
+         data-slug="archangoodnews">
+        <div class="card-title">Archan Good News</div>
+        <div class="card-slug"><span>archangoodnews</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archanhealth.startover.world" target="_blank"
+         data-title="archan health"
+         data-slug="archanhealth">
+        <div class="card-title">Archan Health</div>
+        <div class="card-slug"><span>archanhealth</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archaninfrastructure.startover.world" target="_blank"
+         data-title="archan infrastructure"
+         data-slug="archaninfrastructure">
+        <div class="card-title">Archan Infrastructure</div>
+        <div class="card-slug"><span>archaninfrastructure</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archanpermaculture.startover.world" target="_blank"
+         data-title="archan permaculture"
+         data-slug="archanpermaculture">
+        <div class="card-title">Archan Permaculture</div>
+        <div class="card-slug"><span>archanpermaculture</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archanphilosophy.startover.world" target="_blank"
+         data-title="archan philosophy"
+         data-slug="archanphilosophy">
+        <div class="card-title">Archan Philosophy</div>
+        <div class="card-slug"><span>archanphilosophy</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archanrelating.startover.world" target="_blank"
+         data-title="archan relating"
+         data-slug="archanrelating">
+        <div class="card-title">Archan Relating</div>
+        <div class="card-slug"><span>archanrelating</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archanshamanism.startover.world" target="_blank"
+         data-title="archan shamanism"
+         data-slug="archanshamanism">
+        <div class="card-title">Archan Shamanism</div>
+        <div class="card-slug"><span>archanshamanism</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archetypaldomains.startover.world" target="_blank"
+         data-title="archetypal domains"
+         data-slug="archetypaldomains">
+        <div class="card-title">Archetypal Domains</div>
+        <div class="card-slug"><span>archetypaldomains</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archetypallove.startover.world" target="_blank"
+         data-title="archetypal love"
+         data-slug="archetypallove">
+        <div class="card-title">Archetypal Love</div>
+        <div class="card-slug"><span>archetypallove</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiamory.startover.world" target="_blank"
+         data-title="archiamory"
+         data-slug="archiamory">
+        <div class="card-title">Archiamory</div>
+        <div class="card-slug"><span>archiamory</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchalchildrensculture.startover.world" target="_blank"
+         data-title="archiarchal children's culture"
+         data-slug="archiarchalchildrensculture">
+        <div class="card-title">Archiarchal Children's Culture</div>
+        <div class="card-slug"><span>archiarchalchildrensculture</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchaleconomics.startover.world" target="_blank"
+         data-title="archiarchal economics"
+         data-slug="archiarchaleconomics">
+        <div class="card-title">Archiarchal Economics</div>
+        <div class="card-slug"><span>archiarchaleconomics</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchalmen.startover.world" target="_blank"
+         data-title="archiarchal men"
+         data-slug="archiarchalmen">
+        <div class="card-title">Archiarchal Men</div>
+        <div class="card-slug"><span>archiarchalmen</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchalmusic.startover.world" target="_blank"
+         data-title="archiarchal music"
+         data-slug="archiarchalmusic">
+        <div class="card-title">Archiarchal Music</div>
+        <div class="card-slug"><span>archiarchalmusic</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchalwomen.startover.world" target="_blank"
+         data-title="archiarchal women"
+         data-slug="archiarchalwomen">
+        <div class="card-title">Archiarchal Women</div>
+        <div class="card-slug"><span>archiarchalwomen</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchalthoughtware.startover.world" target="_blank"
+         data-title="archiarchalthoughtware.mystrikingly.com"
+         data-slug="archiarchalthoughtware">
+        <div class="card-title">archiarchalthoughtware.mystrikingly.com</div>
+        <div class="card-slug"><span>archiarchalthoughtware</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchy.startover.world" target="_blank"
+         data-title="archiarchy"
+         data-slug="archiarchy">
+        <div class="card-title">Archiarchy</div>
+        <div class="card-slug"><span>archiarchy</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchyartabana.startover.world" target="_blank"
+         data-title="archiarchy artabana"
+         data-slug="archiarchyartabana">
+        <div class="card-title">Archiarchy Artabana</div>
+        <div class="card-slug"><span>archiarchyartabana</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchyinventioncenters.startover.world" target="_blank"
+         data-title="archiarchy invention centers (aics)"
+         data-slug="archiarchyinventioncenters">
+        <div class="card-title">Archiarchy Invention Centers (AICs)</div>
+        <div class="card-slug"><span>archiarchyinventioncenters</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchykiva.startover.world" target="_blank"
+         data-title="archiarchy kiva"
+         data-slug="archiarchykiva">
+        <div class="card-title">Archiarchy Kiva</div>
+        <div class="card-slug"><span>archiarchykiva</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchymakerfair.startover.world" target="_blank"
+         data-title="archiarchy makers fair"
+         data-slug="archiarchymakerfair">
+        <div class="card-title">Archiarchy Makers Fair</div>
+        <div class="card-slug"><span>archiarchymakerfair</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://archiarchymakersfair.startover.world" target="_blank"
+         data-title="archiarchymakersfair.mystrikingly.com"
+         data-slug="archiarchymakersfair">
+        <div class="card-title">archiarchymakersfair.mystrikingly.com</div>
+        <div class="card-slug"><span>archiarchymakersfair</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://asisprocess.startover.world" target="_blank"
+         data-title="as is process"
+         data-slug="asisprocess">
+        <div class="card-title">As Is Process</div>
+        <div class="card-slug"><span>asisprocess</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://asking.startover.world" target="_blank"
+         data-title="asking"
+         data-slug="asking">
+        <div class="card-title">Asking</div>
+        <div class="card-slug"><span>asking</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://assholetraining.startover.world" target="_blank"
+         data-title="asshole training"
+         data-slug="assholetraining">
+        <div class="card-title">Asshole Training</div>
+        <div class="card-slug"><span>assholetraining</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://assumptions.startover.world" target="_blank"
+         data-title="assumptions"
+         data-slug="assumptions">
+        <div class="card-title">Assumptions</div>
+        <div class="card-slug"><span>assumptions</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://authority.startover.world" target="_blank"
+         data-title="authority"
+         data-slug="authority">
+        <div class="card-title">Authority</div>
+        <div class="card-slug"><span>authority</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://awe.startover.world" target="_blank"
+         data-title="awe"
+         data-slug="awe">
+        <div class="card-title">Awe</div>
+        <div class="card-slug"><span>awe</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bagofthings.startover.world" target="_blank"
+         data-title="bag of things"
+         data-slug="bagofthings">
+        <div class="card-title">Bag Of Things</div>
+        <div class="card-slug"><span>bagofthings</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://baggage.startover.world" target="_blank"
+         data-title="baggage"
+         data-slug="baggage">
+        <div class="card-title">Baggage</div>
+        <div class="card-slug"><span>baggage</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://balls.startover.world" target="_blank"
+         data-title="balls"
+         data-slug="balls">
+        <div class="card-title">Balls</div>
+        <div class="card-slug"><span>balls</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://beadaptive.startover.world" target="_blank"
+         data-title="be adaptive"
+         data-slug="beadaptive">
+        <div class="card-title">Be Adaptive</div>
+        <div class="card-slug"><span>beadaptive</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://becomeabridge.startover.world" target="_blank"
+         data-title="become a bridge"
+         data-slug="becomeabridge">
+        <div class="card-title">Become A Bridge</div>
+        <div class="card-slug"><span>becomeabridge</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://becomemoney.startover.world" target="_blank"
+         data-title="become money"
+         data-slug="becomemoney">
+        <div class="card-title">Become Money</div>
+        <div class="card-slug"><span>becomemoney</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://becomepossibility.startover.world" target="_blank"
+         data-title="become possibility"
+         data-slug="becomepossibility">
+        <div class="card-title">Become Possibility</div>
+        <div class="card-slug"><span>becomepossibility</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://becomepresent.startover.world" target="_blank"
+         data-title="become present"
+         data-slug="becomepresent">
+        <div class="card-title">Become Present</div>
+        <div class="card-slug"><span>becomepresent</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://becomesubversive.startover.world" target="_blank"
+         data-title="become subversive"
+         data-slug="becomesubversive">
+        <div class="card-title">Become Subversive</div>
+        <div class="card-slug"><span>becomesubversive</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://becomeunhookable.startover.world" target="_blank"
+         data-title="become unhookable"
+         data-slug="becomeunhookable">
+        <div class="card-title">Become Unhookable</div>
+        <div class="card-slug"><span>becomeunhookable</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://beingatrainer.startover.world" target="_blank"
+         data-title="being a trainer"
+         data-slug="beingatrainer">
+        <div class="card-title">Being A Trainer</div>
+        <div class="card-slug"><span>beingatrainer</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://beingwith.startover.world" target="_blank"
+         data-title="being with"
+         data-slug="beingwith">
+        <div class="card-title">Being With</div>
+        <div class="card-slug"><span>beingwith</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://beingyourself.startover.world" target="_blank"
+         data-title="being yourself"
+         data-slug="beingyourself">
+        <div class="card-title">Being Yourself</div>
+        <div class="card-slug"><span>beingyourself</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://beliefs.startover.world" target="_blank"
+         data-title="beliefs"
+         data-slug="beliefs">
+        <div class="card-title">Beliefs</div>
+        <div class="card-slug"><span>beliefs</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://boundaries.startover.world" target="_blank"
+         data-title="boundaries"
+         data-slug="boundaries">
+        <div class="card-title">Boundaries</div>
+        <div class="card-slug"><span>boundaries</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bountyhunters.startover.world" target="_blank"
+         data-title="bounty hunters"
+         data-slug="bountyhunters">
+        <div class="card-title">Bounty Hunters</div>
+        <div class="card-slug"><span>bountyhunters</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://boxandbeing.startover.world" target="_blank"
+         data-title="box and being"
+         data-slug="boxandbeing">
+        <div class="card-title">Box And Being</div>
+        <div class="card-slug"><span>boxandbeing</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://boxisoptional.startover.world" target="_blank"
+         data-title="box is optional"
+         data-slug="boxisoptional">
+        <div class="card-title">Box Is Optional</div>
+        <div class="card-slug"><span>boxisoptional</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://boxtechnology.startover.world" target="_blank"
+         data-title="box technology"
+         data-slug="boxtechnology">
+        <div class="card-title">Box Technology</div>
+        <div class="card-slug"><span>boxtechnology</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://brainsplits.startover.world" target="_blank"
+         data-title="brain splits"
+         data-slug="brainsplits">
+        <div class="card-title">Brain Splits</div>
+        <div class="card-slug"><span>brainsplits</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bridge-house.startover.world" target="_blank"
+         data-title="bridge-house.mystrikingly.com"
+         data-slug="bridge-house">
+        <div class="card-title">bridge-house.mystrikingly.com</div>
+        <div class="card-slug"><span>bridge-house</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bridgehouse.startover.world" target="_blank"
+         data-title="bridgehouse"
+         data-slug="bridgehouse">
+        <div class="card-title">Bridgehouse</div>
+        <div class="card-slug"><span>bridgehouse</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bridgehouseranchocampo.startover.world" target="_blank"
+         data-title="bridgehouseranchocampo.mystrikingly.com"
+         data-slug="bridgehouseranchocampo">
+        <div class="card-title">bridgehouseranchocampo.mystrikingly.com</div>
+        <div class="card-slug"><span>bridgehouseranchocampo</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://brightprinciples.startover.world" target="_blank"
+         data-title="bright principles"
+         data-slug="brightprinciples">
+        <div class="card-title">Bright Principles</div>
+        <div class="card-slug"><span>brightprinciples</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bufferzone.startover.world" target="_blank"
+         data-title="buffer zone"
+         data-slug="bufferzone">
+        <div class="card-title">Buffer Zone</div>
+        <div class="card-slug"><span>bufferzone</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://buildmatrix.startover.world" target="_blank"
+         data-title="build matrix"
+         data-slug="buildmatrix">
+        <div class="card-title">Build Matrix</div>
+        <div class="card-slug"><span>buildmatrix</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://buildinglovethatlasts.startover.world" target="_blank"
+         data-title="building love that lasts 1-100"
+         data-slug="buildinglovethatlasts">
+        <div class="card-title">Building Love That Lasts 1-100</div>
+        <div class="card-slug"><span>buildinglovethatlasts</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bullshitdetector.startover.world" target="_blank"
+         data-title="bullshit detector"
+         data-slug="bullshitdetector">
+        <div class="card-title">Bullshit Detector</div>
+        <div class="card-slug"><span>bullshitdetector</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://callingthebeingthrough.startover.world" target="_blank"
+         data-title="calling the being through"
+         data-slug="callingthebeingthrough">
+        <div class="card-title">Calling The Being Through</div>
+        <div class="card-slug"><span>callingthebeingthrough</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://cathexis.startover.world" target="_blank"
+         data-title="cathexis"
+         data-slug="cathexis">
+        <div class="card-title">Cathexis</div>
+        <div class="card-slug"><span>cathexis</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://causeadventure.startover.world" target="_blank"
+         data-title="cause adventure"
+         data-slug="causeadventure">
+        <div class="card-title">Cause Adventure</div>
+        <div class="card-slug"><span>causeadventure</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://causetransformation.startover.world" target="_blank"
+         data-title="cause transformation"
+         data-slug="causetransformation">
+        <div class="card-title">Cause Transformation</div>
+        <div class="card-slug"><span>causetransformation</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://cavitatespace.startover.world" target="_blank"
+         data-title="cavitate space"
+         data-slug="cavitatespace">
+        <div class="card-title">Cavitate Space</div>
+        <div class="card-slug"><span>cavitatespace</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://cavitation.startover.world" target="_blank"
+         data-title="cavitate space"
+         data-slug="cavitation">
+        <div class="card-title">Cavitate Space</div>
+        <div class="card-slug"><span>cavitation</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://centeringthebeing.startover.world" target="_blank"
+         data-title="centering the being"
+         data-slug="centeringthebeing">
+        <div class="card-title">Centering The Being</div>
+        <div class="card-slug"><span>centeringthebeing</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://chairwork.startover.world" target="_blank"
+         data-title="chairwork"
+         data-slug="chairwork">
+        <div class="card-title">Chairwork</div>
+        <div class="card-slug"><span>chairwork</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://changeyourmind.startover.world" target="_blank"
+         data-title="change your mind"
+         data-slug="changeyourmind">
+        <div class="card-title">Change Your Mind</div>
+        <div class="card-slug"><span>changeyourmind</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://choosing.startover.world" target="_blank"
+         data-title="choosing"
+         data-slug="choosing">
+        <div class="card-title">Choosing</div>
+        <div class="card-slug"><span>choosing</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://clarity.startover.world" target="_blank"
+         data-title="clarity.mystrikingly.com"
+         data-slug="clarity">
+        <div class="card-title">clarity.mystrikingly.com</div>
+        <div class="card-slug"><span>clarity</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://clicker.startover.world" target="_blank"
+         data-title="clicker"
+         data-slug="clicker">
+        <div class="card-title">Clicker</div>
+        <div class="card-slug"><span>clicker</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://clintoncallahan.startover.world" target="_blank"
+         data-title="clinton callahan"
+         data-slug="clintoncallahan">
+        <div class="card-title">Clinton Callahan</div>
+        <div class="card-slug"><span>clintoncallahan</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://colereconsciente.startover.world" target="_blank"
+         data-title="colère consciente (français)"
+         data-slug="colereconsciente">
+        <div class="card-title">Colère Consciente (Français)</div>
+        <div class="card-slug"><span>colereconsciente</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://collaborativecommunication.startover.world" target="_blank"
+         data-title="collaborative communication"
+         data-slug="collaborativecommunication">
+        <div class="card-title">Collaborative Communication</div>
+        <div class="card-slug"><span>collaborativecommunication</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://collapse.startover.world" target="_blank"
+         data-title="collapse - what you need to know..."
+         data-slug="collapse">
+        <div class="card-title">Collapse - What you need to know...</div>
+        <div class="card-slug"><span>collapse</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://commitment.startover.world" target="_blank"
+         data-title="commitment"
+         data-slug="commitment">
+        <div class="card-title">Commitment</div>
+        <div class="card-slug"><span>commitment</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://compassofinvention.startover.world" target="_blank"
+         data-title="compass of invention"
+         data-slug="compassofinvention">
+        <div class="card-title">Compass Of Invention</div>
+        <div class="card-slug"><span>compassofinvention</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://compassofreality.startover.world" target="_blank"
+         data-title="compass of reality"
+         data-slug="compassofreality">
+        <div class="card-title">Compass Of Reality</div>
+        <div class="card-slug"><span>compassofreality</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://completeincompleteemotions.startover.world" target="_blank"
+         data-title="complete incomplete emotions"
+         data-slug="completeincompleteemotions">
+        <div class="card-title">Complete Incomplete Emotions</div>
+        <div class="card-slug"><span>completeincompleteemotions</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://completionloop.startover.world" target="_blank"
+         data-title="completion loop"
+         data-slug="completionloop">
+        <div class="card-title">Completion Loop</div>
+        <div class="card-slug"><span>completionloop</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://conclusions.startover.world" target="_blank"
+         data-title="conclusions"
+         data-slug="conclusions">
+        <div class="card-title">Conclusions</div>
+        <div class="card-slug"><span>conclusions</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://confusion.startover.world" target="_blank"
+         data-title="confusion"
+         data-slug="confusion">
+        <div class="card-title">Confusion</div>
+        <div class="card-slug"><span>confusion</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://consciousanger.startover.world" target="_blank"
+         data-title="conscious anger"
+         data-slug="consciousanger">
+        <div class="card-title">Conscious Anger</div>
+        <div class="card-slug"><span>consciousanger</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://consciousfear.startover.world" target="_blank"
+         data-title="conscious fear"
+         data-slug="consciousfear">
+        <div class="card-title">Conscious Fear</div>
+        <div class="card-slug"><span>consciousfear</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://consciousfeelings.startover.world" target="_blank"
+         data-title="conscious feelings"
+         data-slug="consciousfeelings">
+        <div class="card-title">Conscious Feelings</div>
+        <div class="card-slug"><span>consciousfeelings</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://consciousjoy.startover.world" target="_blank"
+         data-title="conscious joy"
+         data-slug="consciousjoy">
+        <div class="card-title">Conscious Joy</div>
+        <div class="card-slug"><span>consciousjoy</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://consciouswill.startover.world" target="_blank"
+         data-title="conscious will"
+         data-slug="consciouswill">
+        <div class="card-title">Conscious Will</div>
+        <div class="card-slug"><span>consciouswill</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://consciousness.startover.world" target="_blank"
+         data-title="consciousness"
+         data-slug="consciousness">
+        <div class="card-title">Consciousness</div>
+        <div class="card-slug"><span>consciousness</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://consequences.startover.world" target="_blank"
+         data-title="consequences"
+         data-slug="consequences">
+        <div class="card-title">Consequences</div>
+        <div class="card-slug"><span>consequences</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://decontaminations.startover.world" target="_blank"
+         data-title="contamination"
+         data-slug="decontaminations">
+        <div class="card-title">Contamination</div>
+        <div class="card-slug"><span>decontaminations</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://coolnessfactor.startover.world" target="_blank"
+         data-title="coolness factor"
+         data-slug="coolnessfactor">
+        <div class="card-title">Coolness Factor</div>
+        <div class="card-slug"><span>coolnessfactor</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://crackincertainty.startover.world" target="_blank"
+         data-title="crackincertainty.mystrikingly.com"
+         data-slug="crackincertainty">
+        <div class="card-title">crackincertainty.mystrikingly.com</div>
+        <div class="card-slug"><span>crackincertainty</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://createpossibility.startover.world" target="_blank"
+         data-title="create possibility"
+         data-slug="createpossibility">
+        <div class="card-title">Create Possibility</div>
+        <div class="card-slug"><span>createpossibility</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://creation.startover.world" target="_blank"
+         data-title="creation"
+         data-slug="creation">
+        <div class="card-title">Creation</div>
+        <div class="card-slug"><span>creation</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://creativecollaboration.startover.world" target="_blank"
+         data-title="creative collaboration"
+         data-slug="creativecollaboration">
+        <div class="card-title">Creative Collaboration</div>
+        <div class="card-slug"><span>creativecollaboration</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://creativecommons.startover.world" target="_blank"
+         data-title="creative commons by sa 4.0 international"
+         data-slug="creativecommons">
+        <div class="card-title">Creative Commons BY SA 4.0 International</div>
+        <div class="card-slug"><span>creativecommons</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://culturalcreatives.startover.world" target="_blank"
+         data-title="cultural creatives"
+         data-slug="culturalcreatives">
+        <div class="card-title">Cultural Creatives</div>
+        <div class="card-slug"><span>culturalcreatives</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://culturetoculture.startover.world" target="_blank"
+         data-title="culture to culture conversations"
+         data-slug="culturetoculture">
+        <div class="card-title">Culture To Culture Conversations</div>
+        <div class="card-slug"><span>culturetoculture</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://dandelion.startover.world" target="_blank"
+         data-title="dandelion - the book"
+         data-slug="dandelion">
+        <div class="card-title">Dandelion - the book</div>
+        <div class="card-slug"><span>dandelion</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://darkmattertherapy.startover.world" target="_blank"
+         data-title="dark matter therapy"
+         data-slug="darkmattertherapy">
+        <div class="card-title">Dark Matter Therapy</div>
+        <div class="card-slug"><span>darkmattertherapy</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://debaptizeyourself.startover.world" target="_blank"
+         data-title="debaptize yourself"
+         data-slug="debaptizeyourself">
+        <div class="card-title">Debaptize Yourself</div>
+        <div class="card-slug"><span>debaptizeyourself</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://debarrierize.startover.world" target="_blank"
+         data-title="debarrierize yourself"
+         data-slug="debarrierize">
+        <div class="card-title">Debarrierize Yourself</div>
+        <div class="card-slug"><span>debarrierize</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://deciding.startover.world" target="_blank"
+         data-title="deciding"
+         data-slug="deciding">
+        <div class="card-title">Deciding</div>
+        <div class="card-slug"><span>deciding</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://declaring.startover.world" target="_blank"
+         data-title="declaring"
+         data-slug="declaring">
+        <div class="card-title">Declaring</div>
+        <div class="card-slug"><span>declaring</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://deconstellation.startover.world" target="_blank"
+         data-title="deconstellation"
+         data-slug="deconstellation">
+        <div class="card-title">Deconstellation</div>
+        <div class="card-slug"><span>deconstellation</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://deconstructions.startover.world" target="_blank"
+         data-title="deconstructions"
+         data-slug="deconstructions">
+        <div class="card-title">Deconstructions</div>
+        <div class="card-slug"><span>deconstructions</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://decontamination.startover.world" target="_blank"
+         data-title="decontamination"
+         data-slug="decontamination">
+        <div class="card-title">Decontamination</div>
+        <div class="card-slug"><span>decontamination</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://decontaminatortraining.startover.world" target="_blank"
+         data-title="decontaminator training"
+         data-slug="decontaminatortraining">
+        <div class="card-title">Decontaminator Training</div>
+        <div class="card-slug"><span>decontaminatortraining</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://demonslayer.startover.world" target="_blank"
+         data-title="demonslayer"
+         data-slug="demonslayer">
+        <div class="card-title">Demonslayer</div>
+        <div class="card-slug"><span>demonslayer</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://denial.startover.world" target="_blank"
+         data-title="denial"
+         data-slug="denial">
+        <div class="card-title">Denial</div>
+        <div class="card-slug"><span>denial</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://devingleeson.startover.world" target="_blank"
+         data-title="devin gleeson"
+         data-slug="devingleeson">
+        <div class="card-title">Devin Gleeson</div>
+        <div class="card-slug"><span>devingleeson</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://discovering.startover.world" target="_blank"
+         data-title="discovering"
+         data-slug="discovering">
+        <div class="card-title">Discovering</div>
+        <div class="card-slug"><span>discovering</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://discoverycall.startover.world" target="_blank"
+         data-title="discovery call"
+         data-slug="discoverycall">
+        <div class="card-title">Discovery Call</div>
+        <div class="card-slug"><span>discoverycall</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://disillusionment.startover.world" target="_blank"
+         data-title="disillusionment"
+         data-slug="disillusionment">
+        <div class="card-title">Disillusionment</div>
+        <div class="card-slug"><span>disillusionment</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://disjointment.startover.world" target="_blank"
+         data-title="disjointment"
+         data-slug="disjointment">
+        <div class="card-title">Disjointment</div>
+        <div class="card-slug"><span>disjointment</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://diskofnothing.startover.world" target="_blank"
+         data-title="disk of nothing"
+         data-slug="diskofnothing">
+        <div class="card-title">Disk Of Nothing</div>
+        <div class="card-slug"><span>diskofnothing</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://distinction.startover.world" target="_blank"
+         data-title="distinction"
+         data-slug="distinction">
+        <div class="card-title">Distinction</div>
+        <div class="card-slug"><span>distinction</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://distinctionary.startover.world" target="_blank"
+         data-title="distinctionary"
+         data-slug="distinctionary">
+        <div class="card-title">Distinctionary</div>
+        <div class="card-slug"><span>distinctionary</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://distinctionary.startover.world" target="_blank"
+         data-title="distinctionary.mystrikingly.com"
+         data-slug="distinctionary">
+        <div class="card-title">distinctionary.mystrikingly.com</div>
+        <div class="card-slug"><span>distinctionary</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://doitpower.startover.world" target="_blank"
+         data-title="do it power"
+         data-slug="doitpower">
+        <div class="card-title">Do It Power</div>
+        <div class="card-slug"><span>doitpower</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://doorway.startover.world" target="_blank"
+         data-title="doorway"
+         data-slug="doorway">
+        <div class="card-title">Doorway</div>
+        <div class="card-slug"><span>doorway</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://dragonspeaking.startover.world" target="_blank"
+         data-title="dragon speaking"
+         data-slug="dragonspeaking">
+        <div class="card-title">Dragon Speaking</div>
+        <div class="card-slug"><span>dragonspeaking</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://drala.startover.world" target="_blank"
+         data-title="drala"
+         data-slug="drala">
+        <div class="card-title">Drala</div>
+        <div class="card-slug"><span>drala</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://dramaholic.startover.world" target="_blank"
+         data-title="dramaholic"
+         data-slug="dramaholic">
+        <div class="card-title">Dramaholic</div>
+        <div class="card-slug"><span>dramaholic</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://ecovillage.startover.world" target="_blank"
+         data-title="ecovillage.org"
+         data-slug="ecovillage">
+        <div class="card-title">ecovillage.org</div>
+        <div class="card-slug"><span>ecovillage</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://edgeworker.startover.world" target="_blank"
+         data-title="edgeworker"
+         data-slug="edgeworker">
+        <div class="card-title">Edgeworker</div>
+        <div class="card-slug"><span>edgeworker</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://egostate.startover.world" target="_blank"
+         data-title="egostate"
+         data-slug="egostate">
+        <div class="card-title">Egostate</div>
+        <div class="card-slug"><span>egostate</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://ehpdojo.startover.world" target="_blank"
+         data-title="ehp dojo"
+         data-slug="ehpdojo">
+        <div class="card-title">EHP Dojo</div>
+        <div class="card-slug"><span>ehpdojo</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://emotionalhealingintensive.startover.world" target="_blank"
+         data-title="emotional healing intensive"
+         data-slug="emotionalhealingintensive">
+        <div class="card-title">Emotional Healing Intensive</div>
+        <div class="card-slug"><span>emotionalhealingintensive</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://emotionalhealingprocess.startover.world" target="_blank"
+         data-title="emotional healing process (ehp)"
+         data-slug="emotionalhealingprocess">
+        <div class="card-title">Emotional Healing Process (EHP)</div>
+        <div class="card-slug"><span>emotionalhealingprocess</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://en.startover.world" target="_blank"
+         data-title="en.wikipedia.org/wiki/copyleft"
+         data-slug="en">
+        <div class="card-title">en.wikipedia.org/wiki/Copyleft</div>
+        <div class="card-slug"><span>en</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://endgame.startover.world" target="_blank"
+         data-title="endgame"
+         data-slug="endgame">
+        <div class="card-title">Endgame</div>
+        <div class="card-slug"><span>endgame</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://energeticblock.startover.world" target="_blank"
+         data-title="energetic block"
+         data-slug="energeticblock">
+        <div class="card-title">Energetic Block</div>
+        <div class="card-slug"><span>energeticblock</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://escapethepatriarchy.startover.world" target="_blank"
+         data-title="escape the patriarchy"
+         data-slug="escapethepatriarchy">
+        <div class="card-title">Escape The Patriarchy</div>
+        <div class="card-slug"><span>escapethepatriarchy</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://everygeneration.startover.world" target="_blank"
+         data-title="every generation"
+         data-slug="everygeneration">
+        <div class="card-title">Every Generation</div>
+        <div class="card-slug"><span>everygeneration</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://everythingness.startover.world" target="_blank"
+         data-title="everythingness - the archetypal feminine"
+         data-slug="everythingness">
+        <div class="card-title">Everythingness - the Archetypal Feminine</div>
+        <div class="card-slug"><span>everythingness</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://evolutionofconsciousness.startover.world" target="_blank"
+         data-title="evolution of consciousness"
+         data-slug="evolutionofconsciousness">
+        <div class="card-title">Evolution Of Consciousness</div>
+        <div class="card-slug"><span>evolutionofconsciousness</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://evolutionofrelating.startover.world" target="_blank"
+         data-title="evolution of relating"
+         data-slug="evolutionofrelating">
+        <div class="card-title">Evolution Of Relating</div>
+        <div class="card-slug"><span>evolutionofrelating</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://evolutionary.startover.world" target="_blank"
+         data-title="evolutionary"
+         data-slug="evolutionary">
+        <div class="card-title">Evolutionary</div>
+        <div class="card-slug"><span>evolutionary</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://ewawichmann.startover.world" target="_blank"
+         data-title="ewa wichmann"
+         data-slug="ewawichmann">
+        <div class="card-title">Ewa Wichmann</div>
+        <div class="card-slug"><span>ewawichmann</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://expandthebox.startover.world" target="_blank"
+         data-title="expand the box - the training"
+         data-slug="expandthebox">
+        <div class="card-title">Expand The Box - the training</div>
+        <div class="card-slug"><span>expandthebox</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://expansivelearning.startover.world" target="_blank"
+         data-title="expansive learning"
+         data-slug="expansivelearning">
+        <div class="card-title">Expansive Learning</div>
+        <div class="card-slug"><span>expansivelearning</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://expectations.startover.world" target="_blank"
+         data-title="expectations"
+         data-slug="expectations">
+        <div class="card-title">Expectations</div>
+        <div class="card-slug"><span>expectations</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://experiencearchiarchy.startover.world" target="_blank"
+         data-title="experience archiarchy"
+         data-slug="experiencearchiarchy">
+        <div class="card-title">Experience Archiarchy</div>
+        <div class="card-slug"><span>experiencearchiarchy</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://experientialreality.startover.world" target="_blank"
+         data-title="experiential reality"
+         data-slug="experientialreality">
+        <div class="card-title">Experiential Reality</div>
+        <div class="card-slug"><span>experientialreality</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://eyeoftheneedle.startover.world" target="_blank"
+         data-title="eye of the needle"
+         data-slug="eyeoftheneedle">
+        <div class="card-title">Eye Of The Needle</div>
+        <div class="card-slug"><span>eyeoftheneedle</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://fairunfair.startover.world" target="_blank"
+         data-title="fair / unfair"
+         data-slug="fairunfair">
+        <div class="card-title">Fair / Unfair</div>
+        <div class="card-slug"><span>fairunfair</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://fantasyworlds.startover.world" target="_blank"
+         data-title="fantasy worlds"
+         data-slug="fantasyworlds">
+        <div class="card-title">Fantasy Worlds</div>
+        <div class="card-slug"><span>fantasyworlds</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://fearclub.startover.world" target="_blank"
+         data-title="fear club"
+         data-slug="fearclub">
+        <div class="card-title">Fear Club</div>
+        <div class="card-slug"><span>fearclub</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://fearclubspaceholdertraining.startover.world" target="_blank"
+         data-title="fear club spaceholder training"
+         data-slug="fearclubspaceholdertraining">
+        <div class="card-title">Fear Club Spaceholder Training</div>
+        <div class="card-slug"><span>fearclubspaceholdertraining</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://fearofconnection.startover.world" target="_blank"
+         data-title="fear of connection"
+         data-slug="fearofconnection">
+        <div class="card-title">Fear Of Connection</div>
+        <div class="card-slug"><span>fearofconnection</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://fearcraft.startover.world" target="_blank"
+         data-title="fearcraft - the book"
+         data-slug="fearcraft">
+        <div class="card-title">Fearcraft - the book</div>
+        <div class="card-slug"><span>fearcraft</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://feedbackandcoaching.startover.world" target="_blank"
+         data-title="feedback and coaching"
+         data-slug="feedbackandcoaching">
+        <div class="card-title">Feedback And Coaching</div>
+        <div class="card-slug"><span>feedbackandcoaching</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://feelingsarchetypes.startover.world" target="_blank"
+         data-title="feelings archetypes"
+         data-slug="feelingsarchetypes">
+        <div class="card-title">Feelings Archetypes</div>
+        <div class="card-slug"><span>feelingsarchetypes</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://feelingscycle.startover.world" target="_blank"
+         data-title="feelings cycle"
+         data-slug="feelingscycle">
+        <div class="card-title">Feelings Cycle</div>
+        <div class="card-slug"><span>feelingscycle</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://feelingsdetector.startover.world" target="_blank"
+         data-title="feelings detector"
+         data-slug="feelingsdetector">
+        <div class="card-title">Feelings Detector</div>
+        <div class="card-slug"><span>feelingsdetector</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://feelingspractitioner.startover.world" target="_blank"
+         data-title="feelings practitioner.com"
+         data-slug="feelingspractitioner">
+        <div class="card-title">Feelings Practitioner.com</div>
+        <div class="card-slug"><span>feelingspractitioner</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://feelingspractitioner.startover.world" target="_blank"
+         data-title="feelingspractitioner.org"
+         data-slug="feelingspractitioner">
+        <div class="card-title">feelingspractitioner.org</div>
+        <div class="card-slug"><span>feelingspractitioner</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://finishbeingborn.startover.world" target="_blank"
+         data-title="finish being born"
+         data-slug="finishbeingborn">
+        <div class="card-title">Finish Being Born</div>
+        <div class="card-slug"><span>finishbeingborn</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://firstposition.startover.world" target="_blank"
+         data-title="first position"
+         data-slug="firstposition">
+        <div class="card-title">First Position</div>
+        <div class="card-slug"><span>firstposition</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://floorprocesses.startover.world" target="_blank"
+         data-title="floor processes"
+         data-slug="floorprocesses">
+        <div class="card-title">Floor Processes</div>
+        <div class="card-slug"><span>floorprocesses</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://flowpower.startover.world" target="_blank"
+         data-title="flow power"
+         data-slug="flowpower">
+        <div class="card-title">Flow Power</div>
+        <div class="card-slug"><span>flowpower</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://fluxpoint.startover.world" target="_blank"
+         data-title="flux point"
+         data-slug="fluxpoint">
+        <div class="card-title">Flux Point</div>
+        <div class="card-slug"><span>fluxpoint</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://flyingschool.startover.world" target="_blank"
+         data-title="flying school"
+         data-slug="flyingschool">
+        <div class="card-title">Flying School</div>
+        <div class="card-slug"><span>flyingschool</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://10doorways.startover.world" target="_blank"
+         data-title="for becoming a possibilitator"
+         data-slug="10doorways">
+        <div class="card-title">for becoming a Possibilitator</div>
+        <div class="card-slug"><span>10doorways</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://foreverything.startover.world" target="_blank"
+         data-title="for everything"
+         data-slug="foreverything">
+        <div class="card-title">For Everything</div>
+        <div class="card-slug"><span>foreverything</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gaiangameworlds.startover.world" target="_blank"
+         data-title="gaian gameworlds"
+         data-slug="gaiangameworlds">
+        <div class="card-title">Gaian Gameworlds</div>
+        <div class="card-slug"><span>gaiangameworlds</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gaianroadteam.startover.world" target="_blank"
+         data-title="gaian road team"
+         data-slug="gaianroadteam">
+        <div class="card-title">Gaian Road Team</div>
+        <div class="card-slug"><span>gaianroadteam</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gaias.startover.world" target="_blank"
+         data-title="gaias"
+         data-slug="gaias">
+        <div class="card-title">Gaias</div>
+        <div class="card-slug"><span>gaias</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gaiaversity.startover.world" target="_blank"
+         data-title="gaiaversity.com/gaiaville"
+         data-slug="gaiaversity">
+        <div class="card-title">gaiaversity.com/gaiaville</div>
+        <div class="card-slug"><span>gaiaversity</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gaiavillage.startover.world" target="_blank"
+         data-title="gaiavillage (different from an ecovillage)"
+         data-slug="gaiavillage">
+        <div class="card-title">Gaiavillage (different from an Ecovillage)</div>
+        <div class="card-slug"><span>gaiavillage</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gameover.startover.world" target="_blank"
+         data-title="game over"
+         data-slug="gameover">
+        <div class="card-title">Game Over</div>
+        <div class="card-slug"><span>gameover</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gameworldbuilder.startover.world" target="_blank"
+         data-title="gameworld builder"
+         data-slug="gameworldbuilder">
+        <div class="card-title">Gameworld Builder</div>
+        <div class="card-slug"><span>gameworldbuilder</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gameworldbuilderschool.startover.world" target="_blank"
+         data-title="gameworld builder school"
+         data-slug="gameworldbuilderschool">
+        <div class="card-title">Gameworld Builder School</div>
+        <div class="card-slug"><span>gameworldbuilderschool</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gameworldconsulting.startover.world" target="_blank"
+         data-title="gameworld consulting"
+         data-slug="gameworldconsulting">
+        <div class="card-title">Gameworld Consulting</div>
+        <div class="card-slug"><span>gameworldconsulting</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gameworlddemolition.startover.world" target="_blank"
+         data-title="gameworld demolition"
+         data-slug="gameworlddemolition">
+        <div class="card-title">Gameworld Demolition</div>
+        <div class="card-slug"><span>gameworlddemolition</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gameworldtheory.startover.world" target="_blank"
+         data-title="gameworld theory"
+         data-slug="gameworldtheory">
+        <div class="card-title">Gameworld Theory</div>
+        <div class="card-slug"><span>gameworldtheory</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gameworldtraditions.startover.world" target="_blank"
+         data-title="gameworld traditions"
+         data-slug="gameworldtraditions">
+        <div class="card-title">Gameworld Traditions</div>
+        <div class="card-slug"><span>gameworldtraditions</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gapingameworlds.startover.world" target="_blank"
+         data-title="gap in gameworlds"
+         data-slug="gapingameworlds">
+        <div class="card-title">Gap In Gameworlds</div>
+        <div class="card-slug"><span>gapingameworlds</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gapinidentity.startover.world" target="_blank"
+         data-title="gap in identity"
+         data-slug="gapinidentity">
+        <div class="card-title">Gap In Identity</div>
+        <div class="card-slug"><span>gapinidentity</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gapinknowing.startover.world" target="_blank"
+         data-title="gap in knowing"
+         data-slug="gapinknowing">
+        <div class="card-title">Gap In Knowing</div>
+        <div class="card-slug"><span>gapinknowing</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gapinnoise.startover.world" target="_blank"
+         data-title="gap in noise"
+         data-slug="gapinnoise">
+        <div class="card-title">Gap In Noise</div>
+        <div class="card-slug"><span>gapinnoise</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gapinresonance.startover.world" target="_blank"
+         data-title="gap in resonance field"
+         data-slug="gapinresonance">
+        <div class="card-title">Gap In Resonance Field</div>
+        <div class="card-slug"><span>gapinresonance</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gapinspace.startover.world" target="_blank"
+         data-title="gap in space"
+         data-slug="gapinspace">
+        <div class="card-title">Gap In Space</div>
+        <div class="card-slug"><span>gapinspace</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gapintime.startover.world" target="_blank"
+         data-title="gap in time"
+         data-slug="gapintime">
+        <div class="card-title">Gap In Time</div>
+        <div class="card-slug"><span>gapintime</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://generalmemetics.startover.world" target="_blank"
+         data-title="general memetics"
+         data-slug="generalmemetics">
+        <div class="card-title">General Memetics</div>
+        <div class="card-slug"><span>generalmemetics</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://getoutnow.startover.world" target="_blank"
+         data-title="get out now"
+         data-slug="getoutnow">
+        <div class="card-title">Get Out Now</div>
+        <div class="card-slug"><span>getoutnow</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gettingoffbraindrugs.startover.world" target="_blank"
+         data-title="getting off brain drugs"
+         data-slug="gettingoffbraindrugs">
+        <div class="card-title">Getting Off Brain Drugs</div>
+        <div class="card-slug"><span>gettingoffbraindrugs</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://goexplore.startover.world" target="_blank"
+         data-title="go explore"
+         data-slug="goexplore">
+        <div class="card-title">Go Explore</div>
+        <div class="card-slug"><span>goexplore</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gononlinear.startover.world" target="_blank"
+         data-title="go nonlinear"
+         data-slug="gononlinear">
+        <div class="card-title">Go Nonlinear</div>
+        <div class="card-slug"><span>gononlinear</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gototheedge.startover.world" target="_blank"
+         data-title="go to the edge"
+         data-slug="gototheedge">
+        <div class="card-title">Go To The Edge</div>
+        <div class="card-slug"><span>gototheedge</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gotravelnow.startover.world" target="_blank"
+         data-title="go travel now"
+         data-slug="gotravelnow">
+        <div class="card-title">Go Travel Now</div>
+        <div class="card-slug"><span>gotravelnow</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gounreasonable.startover.world" target="_blank"
+         data-title="go unreasonable"
+         data-slug="gounreasonable">
+        <div class="card-title">Go Unreasonable</div>
+        <div class="card-slug"><span>gounreasonable</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://gobeepshiftgo.startover.world" target="_blank"
+         data-title="go! beep! shift! go!"
+         data-slug="gobeepshiftgo">
+        <div class="card-title">Go! Beep! Shift! Go!</div>
+        <div class="card-slug"><span>gobeepshiftgo</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://goldenkey.startover.world" target="_blank"
+         data-title="golden key"
+         data-slug="goldenkey">
+        <div class="card-title">Golden Key</div>
+        <div class="card-slug"><span>goldenkey</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://goldenkeyprocess.startover.world" target="_blank"
+         data-title="golden key process"
+         data-slug="goldenkeyprocess">
+        <div class="card-title">Golden Key Process</div>
+        <div class="card-slug"><span>goldenkeyprocess</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://clintoncallahanprivacypolicy.startover.world" target="_blank"
+         data-title="imprint copyleft notice privacy policy terms and conditions"
+         data-slug="clintoncallahanprivacypolicy">
+        <div class="card-title">Imprint Copyleft Notice Privacy Policy Terms and Conditions</div>
+        <div class="card-slug"><span>clintoncallahanprivacypolicy</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://facebook.startover.world" target="_blank"
+         data-title="polska on facebook"
+         data-slug="facebook">
+        <div class="card-title">Polska on Facebook</div>
+        <div class="card-slug"><span>facebook</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://bookshop.startover.world" target="_blank"
+         data-title="possibility management - bookshop"
+         data-slug="bookshop">
+        <div class="card-title">Possibility Management - Bookshop</div>
+        <div class="card-slug"><span>bookshop</span>.startover.world</div>
+      </a>
+      <a class="card" href="https://expandtheboxtenerife.startover.world" target="_blank"
+         data-title="tenerife (spain)"
+         data-slug="expandtheboxtenerife">
+        <div class="card-title">Tenerife (Spain)</div>
+        <div class="card-slug"><span>expandtheboxtenerife</span>.startover.world</div>
+      </a>
+    </div>
+
+    <div class="no-results" id="no-results">No sites match your search.</div>
+
+    <footer>
+      <div class="container" style="padding:0">
+        STARTOVER.WORLD — Recovered from archive.org —
+        2026
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const search = document.getElementById('search');
+    const cards = document.querySelectorAll('.card');
+    const count = document.getElementById('count');
+    const noResults = document.getElementById('no-results');
+    const total = cards.length;
+
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase().trim();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const match = !q ||
+          card.dataset.title.includes(q) ||
+          card.dataset.slug.includes(q);
+        card.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+
+      count.textContent = q
+        ? `${visible} of ${total} sites`
+        : `${total} sites`;
+
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+    });
+  </script>
+</body>
+</html>
