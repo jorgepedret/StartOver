@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Not Found — StartOver.world</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@400;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --border: #1e1e2e;
+      --accent: #7fffb2;
+      --muted: #6060a0;
+      --text: #e8e8f0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(127,255,178,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(127,255,178,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+    }
+
+    .code {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(80px, 20vw, 160px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--border);
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .slug {
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      margin-bottom: 32px;
+      opacity: 0.8;
+    }
+
+    #slug-display { color: var(--accent); }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="code">404</div>
+    <div class="slug">
+      <span id="slug-display"></span>.startover.world
+    </div>
+    <h1>This site doesn't exist.</h1>
+    <p>
+      Either this site hasn't been crawled yet,<br>
+      or no archive snapshot was found.
+    </p>
+    <a class="btn" href="https://startover.world">← Back to Index</a>
+  </div>
+
+  <script>
+    const slug = window.location.hostname.split('.')[0];
+    document.getElementById('slug-display').textContent = slug;
+  </script>
+</body>
+</html>
