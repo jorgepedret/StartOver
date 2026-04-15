@@ -2574,17 +2574,15 @@
   "radicalsimplicity.mystrikingly.com": {
     "status": "ok",
     "slug": "radicalsimplicity",
-    "timestamp": "20210921143805"
+    "timestamp": "20250717033544"
   },
   "rageclub.mystrikingly.com": {
     "status": "ok",
     "slug": "rageclub",
-    "timestamp": "20190818032000"
+    "timestamp": "20260403194930"
   },
   "rageclubspaceholdertraining.mystrikingly.com": {
-    "status": "ok",
-    "slug": "rageclubspaceholdertraining",
-    "timestamp": "20211209044550"
+    "status": "no_snapshot"
   },
   "ranchocampo.mystrikingly.com": {
     "status": "no_snapshot"
@@ -2592,22 +2590,20 @@
   "reactivity.mystrikingly.com": {
     "status": "ok",
     "slug": "reactivity",
-    "timestamp": "20200408075253"
+    "timestamp": "20250805130108"
   },
   "realvoice.mystrikingly.com": {
     "status": "ok",
     "slug": "realvoice",
-    "timestamp": "20190915073712"
+    "timestamp": "20250505033435"
   },
   "reasons.mystrikingly.com": {
     "status": "ok",
     "slug": "reasons",
-    "timestamp": "20210921083814"
+    "timestamp": "20250712133343"
   },
   "recoverintimacy.mystrikingly.com": {
-    "status": "ok",
-    "slug": "recoverintimacy",
-    "timestamp": "20200408115421"
+    "status": "no_snapshot"
   },
   "redcloth.mystrikingly.com": {
     "status": "ok",
@@ -2710,32 +2706,30 @@
   "rulesofchaos.mystrikingly.com": {
     "status": "ok",
     "slug": "rulesofchaos",
-    "timestamp": "20190921201224"
+    "timestamp": "20250811042805"
   },
   "s-h-i-t.mystrikingly.com": {
     "status": "ok",
     "slug": "s-h-i-t",
-    "timestamp": "20210126075425"
+    "timestamp": "20250516170134"
   },
   "savory.global": {
     "status": "ok",
     "slug": "savory",
-    "timestamp": "20150406231902"
+    "timestamp": "20260408133735"
   },
   "saystop.mystrikingly.com": {
     "status": "ok",
     "slug": "saystop",
-    "timestamp": "20190918160805"
+    "timestamp": "20250425064050"
   },
   "saywhatyouwant.mystrikingly.com": {
     "status": "ok",
     "slug": "saywhatyouwant",
-    "timestamp": "20220609114716"
+    "timestamp": "20250506110429"
   },
   "scanning.mystrikingly.com": {
-    "status": "ok",
-    "slug": "scanning",
-    "timestamp": "20190923085807"
+    "status": "no_snapshot"
   },
   "selfabuse.mystrikingly.com": {
     "status": "ok",
@@ -2745,12 +2739,12 @@
   "selfcomposting.mystrikingly.com": {
     "status": "ok",
     "slug": "selfcomposting",
-    "timestamp": "20201204200629"
+    "timestamp": "20250714173031"
   },
   "selfdeception.mystrikingly.com": {
     "status": "ok",
     "slug": "selfdeception",
-    "timestamp": "20230104121900"
+    "timestamp": "20250505101616"
   },
   "selfishgenerosity.mystrikingly.com": {
     "status": "no_snapshot"
@@ -2758,17 +2752,13 @@
   "selfobservation.mystrikingly.com": {
     "status": "ok",
     "slug": "selfobservation",
-    "timestamp": "20190822070453"
+    "timestamp": "20250807002018"
   },
   "selfsurgery.mystrikingly.com": {
-    "status": "ok",
-    "slug": "selfsurgery",
-    "timestamp": "20190821044922"
+    "status": "no_snapshot"
   },
   "setcontext.mystrikingly.com": {
-    "status": "ok",
-    "slug": "setcontext",
-    "timestamp": "20190825232257"
+    "status": "no_snapshot"
   },
   "sexualabuse.mystrikingly.com": {
     "status": "ok",
@@ -2811,8 +2801,7 @@
     "timestamp": "20191222234826"
   },
   "snapin.mystrikingly.com": {
-    "status": "error",
-    "error": "The operation was aborted due to timeout"
+    "status": "no_snapshot"
   },
   "somos.land": {
     "status": "ok",
@@ -2835,22 +2824,22 @@
   "spaceport.mystrikingly.com": {
     "status": "ok",
     "slug": "spaceport",
-    "timestamp": "20190822185824"
+    "timestamp": "20250812024223"
   },
   "sparks-chinese.mystrikingly.com": {
     "status": "ok",
     "slug": "sparks-chinese",
-    "timestamp": "20191020062108"
+    "timestamp": "20250421113904"
   },
   "sparks-czech.mystrikingly.com": {
     "status": "ok",
     "slug": "sparks-czech",
-    "timestamp": "20230326052413"
+    "timestamp": "20250328021929"
   },
   "sparks-dutch.mystrikingly.com": {
     "status": "ok",
     "slug": "sparks-dutch",
-    "timestamp": "20191020174017"
+    "timestamp": "20250419212634"
   },
   "sparks-english.mystrikingly.com": {
     "status": "ok",
@@ -2878,14 +2867,10 @@
     "timestamp": "20191020103718"
   },
   "sparks-hebrew.mystrikingly.com": {
-    "status": "ok",
-    "slug": "sparks-hebrew",
-    "timestamp": "20191016121236"
+    "status": "no_snapshot"
   },
   "sparks-italian.mystrikingly.com": {
-    "status": "ok",
-    "slug": "sparks-italian",
-    "timestamp": "20190826095246"
+    "status": "no_snapshot"
   },
   "sparks-japanese.mystrikingly.com": {
     "status": "ok",
@@ -2915,12 +2900,10 @@
   "sparks-russian.mystrikingly.com": {
     "status": "ok",
     "slug": "sparks-russian",
-    "timestamp": "20191120225327"
+    "timestamp": "20250426214447"
   },
   "sparks-spanish.mystrikingly.com": {
-    "status": "ok",
-    "slug": "sparks-spanish",
-    "timestamp": "20191019121106"
+    "status": "no_snapshot"
   },
   "sparks-swedish.mystrikingly.com": {
     "status": "ok",
@@ -3053,8 +3036,7 @@
     "timestamp": "20210927170128"
   },
   "themillennials.mystrikingly.com": {
-    "status": "error",
-    "error": "The operation was aborted due to timeout"
+    "status": "no_snapshot"
   },
   "themuse.mystrikingly.com": {
     "status": "ok",
@@ -3253,9 +3235,7 @@
     "timestamp": "20200805193532"
   },
   "womanmaking.mystrikingly.com": {
-    "status": "ok",
-    "slug": "womanmaking",
-    "timestamp": "20191222235106"
+    "status": "no_snapshot"
   },
   "womenandmen.mystrikingly.com": {
     "status": "ok",
@@ -3265,7 +3245,7 @@
   "womenofearth.live": {
     "status": "ok",
     "slug": "womenofearth",
-    "timestamp": "20240907190312"
+    "timestamp": "20260307080949"
   },
   "womenofearth.mystrikingly.com": {
     "status": "no_snapshot"
@@ -3278,12 +3258,10 @@
   "womenscircle.mystrikingly.com": {
     "status": "ok",
     "slug": "womenscircle",
-    "timestamp": "20200804104424"
+    "timestamp": "20250803085725"
   },
   "worthinghealers.mystrikingly.com": {
-    "status": "ok",
-    "slug": "worthinghealers",
-    "timestamp": "20201028121835"
+    "status": "no_snapshot"
   },
   "writethebook.mystrikingly.com": {
     "status": "ok",
@@ -3298,7 +3276,7 @@
   "writethescript.mystrikingly.com": {
     "status": "ok",
     "slug": "writethescript",
-    "timestamp": "20200408100106"
+    "timestamp": "20250505152946"
   },
   "writeyourarticle.mystrikingly.com": {
     "status": "ok",
@@ -3308,27 +3286,27 @@
   "writeyournewsletter.mystrikingly.com": {
     "status": "ok",
     "slug": "writeyournewsletter",
-    "timestamp": "20200807143553"
+    "timestamp": "20250505210511"
   },
   "writinghouse.mystrikingly.com": {
     "status": "ok",
     "slug": "writinghouse",
-    "timestamp": "20220528233532"
+    "timestamp": "20250517130133"
   },
   "www.amazon.com": {
     "status": "ok",
     "slug": "www",
-    "timestamp": "19990828014913"
+    "timestamp": "20260414232754"
   },
   "www.hohmpress.com": {
     "status": "ok",
     "slug": "www",
-    "timestamp": "19991127111154"
+    "timestamp": "20260307000400"
   },
   "www.imdb.com": {
     "status": "ok",
     "slug": "www",
-    "timestamp": "19961119065302"
+    "timestamp": "20260414201207"
   },
   "www.pminoz.com.au": {
     "status": "ok",
@@ -3413,6 +3391,6 @@
   "zombies.mystrikingly.com": {
     "status": "ok",
     "slug": "zombies",
-    "timestamp": "20190825174115"
+    "timestamp": "20250512200816"
   }
 }
