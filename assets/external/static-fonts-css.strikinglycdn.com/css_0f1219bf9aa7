@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'Alata';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://static-fonts.strikinglycdn.com/s/alata/v12/PbytFmztEwbIoce9zqM.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://static-fonts.strikinglycdn.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aX8.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://static-fonts.strikinglycdn.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM73w5aX8.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Share Tech';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://static-fonts.strikinglycdn.com/s/sharetech/v23/7cHtv4Uyi5K0OeZ7bohU8H0JnQ.ttf) format('truetype');
+}

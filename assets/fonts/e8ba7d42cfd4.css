@@ -1,0 +1,49 @@
+@font-face {
+  font-family: 'Bad Script';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/badscript/v18/6NUT8F6PJgbFWQn47_x7pOUkyQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/lato/v25/S6u_w4BMUTPHjxsI9w2_FQfo.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/lato/v25/S6u8w4BMUTPHjxsAUi-v.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/lato/v25/S6u_w4BMUTPHjxsI5wq_FQfo.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/lato/v25/S6u9w4BMUTPHh7USSwaPHA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/lato/v25/S6uyw4BMUTPHjxAwWw.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/lato/v25/S6u9w4BMUTPHh6UVSwaPHA.ttf) format('truetype');
+}

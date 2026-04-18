@@ -1,0 +1,54 @@
+@font-face {
+  font-family: 'Alata';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://static-fonts.strikinglycdn.com/s/alata/v12/PbytFmztEwbIoce9zqM.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0ybmGD4kxqXBmOVLG30OGwsmABIk-hf2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0yb5GD4kxqXBmOVLG30OGwsuqzA0.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0ybmGD4kxqXBmOVLG30OGwsmWBMk-hf2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0ybmGD4kxqXBmOVLG30OGwsmdBQk-hf2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0ybmGD4kxqXBmOVLG30OGwsmEBUk-hf2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lemon';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://static-fonts.strikinglycdn.com/s/lemon/v19/HI_EiYEVKqRMq3jGQ5E.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://static-fonts.strikinglycdn.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw5aX8.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://static-fonts.strikinglycdn.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM73w5aX8.ttf) format('truetype');
+}

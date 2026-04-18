@@ -1,0 +1,63 @@
+@font-face {
+  font-family: 'Alata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/alata/v12/PbytFmztEwbIocezzqM.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0ybmGD4kxqXBmOVLG30OGwsmABIk9Bf2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0yb5GD4kxqXBmOVLG30OGwsupTA0.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0ybmGD4kxqXBmOVLG30OGwsmWBMk9Bf2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0ybmGD4kxqXBmOVLG30OGwsmdBQk9Bf2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant SC';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/cormorantsc/v19/0ybmGD4kxqXBmOVLG30OGwsmEBUk9Bf2.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lemon';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/lemon/v19/HI_EiYEVKqRMq3jIQ5E.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Hw3aX8.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://static-fonts.strikinglycdn.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM73w3aX8.ttf) format('truetype');
+}
