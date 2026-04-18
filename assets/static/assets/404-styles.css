@@ -1,0 +1,118 @@
+html { background: #484271; }
+body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  display: -ms-flexbox;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+.bg-logo {
+  opacity: .2;
+  position: fixed;
+  left: 0; right: 0; top: 0; bottom: -20%;
+  background: url(//uploads.strikinglycdn.com/static/other/logo-svg.svg) -5% 50% no-repeat;
+  background-size: cover;
+}
+.bg-texture {
+  background: #eee;
+}
+.light-text { color: white; }
+.dark-text { color: #636972; }
+.wide {
+  position: relative;
+  padding: 10px 0;
+  margin: 0 auto;
+  letter-spacing: .5px;
+  width: 100%;
+}
+.col2 {
+  margin: 0 auto;
+  text-align:center;
+  line-height: 150%;
+}
+.col2 h1 {
+  font-family: 'Montserrat', 'Segoe UI', 'Helvetica Neue', arial, sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.col2 h2 {
+  font-family: 'Montserrat', 'Segoe UI', 'Helvetica Neue', arial, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.col2 p {
+  font-family: 'Open Sans', 'Segoe UI', 'Helvetica Neue', arial, sans-serif;
+  font-weight: 100;
+  font-size: 17px;
+  margin: 40px auto;
+}
+.col2 a {
+  color: #1bb0e6;
+  text-decoration: none;
+}
+.col2 img {
+  width: 100px;
+  padding: 5px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  background: transparent;
+  box-shadow: none;
+}
+a.button {
+  position: relative;
+  font-family: 'Montserrat', 'Segoe UI', 'Helvetica Neue', arial, sans-serif;
+  font-size: 16px;
+  font-weight: 100;
+  text-transform: uppercase;
+  background: #93b719;
+  border: 1px solid #93b719;
+  border-radius: 4px;
+  width: 250px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0px auto 20px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 5px 20px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+a.button:before {
+  content: " ";
+  width: auto;
+  height: 10px;
+  left: 0;
+  right: 0;
+  border-top: 1px solid white;
+  opacity: .4;
+  position: absolute;
+  top: 0;
+  border-radius: 5px;
+}
+a.button.dark-bg:before {
+  top: -1px;
+}
+a.button:link, a.button:hover, a.button:visited {
+  color: white;
+}
+a.button:hover {
+  background: #a5cd1c;
+  border-color: #a5cd1c;
+}
+a.button.warning {
+  background: #fa0;
+  border: 1px solid #fa0;
+}
+a.button.warning:hover {
+  background: #fb0;
+  border: 1px solid #fb0;
+}
