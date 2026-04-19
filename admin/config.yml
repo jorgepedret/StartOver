@@ -16,17 +16,17 @@ collections:
     extension: md
     format: frontmatter
     fields:
-      - label: Site Slug
-        name: slug
-        widget: string
-        hint: "URL-friendly name (e.g., regenerate-earth-goals)"
-        required: true
-
       - label: Title
         name: title
         widget: string
         hint: "Page title"
         required: true
+
+      - label: Site Slug
+        name: slug
+        widget: string
+        hint: "URL-friendly name (auto-generated from title, edit if needed)"
+        required: false
 
       - label: Domain
         name: domain
