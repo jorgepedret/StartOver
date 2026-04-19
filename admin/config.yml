@@ -1,0 +1,87 @@
+backend:
+  name: github
+  repo: anthropics/startover
+  branch: main
+  base_url: https://api.github.com
+  auth_endpoint: auth
+
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  - name: pages
+    label: Pages
+    folder: sites
+    create: true
+    slug: "{{slug}}"
+    identifier_field: slug
+    extension: md
+    format: frontmatter
+    fields:
+      - label: Site Slug
+        name: slug
+        widget: string
+        hint: "URL-friendly name (e.g., regenerate-earth-goals)"
+        required: true
+
+      - label: Title
+        name: title
+        widget: string
+        hint: "Page title"
+        required: true
+
+      - label: Domain
+        name: domain
+        widget: string
+        hint: "Original domain (optional)"
+        required: false
+
+      - label: Intro Text
+        name: intro_text
+        widget: text
+        hint: "Introductory paragraph describing the page"
+        required: false
+
+      - label: Hero Image
+        name: hero_image
+        widget: image
+        hint: "Main image for the page"
+        required: false
+
+      - label: Content Sections
+        name: content_sections
+        widget: list
+        hint: "Add content sections to the page"
+        collapsed: false
+        fields:
+          - label: Section Title
+            name: section_title
+            widget: string
+            hint: "Title of this section"
+
+          - label: Section Content
+            name: section_content
+            widget: text
+            hint: "Main content for this section"
+
+          - label: Section Image
+            name: section_image
+            widget: image
+            hint: "Optional image for this section"
+            required: false
+
+      - label: Tags
+        name: tags
+        widget: list
+        hint: "Add tags for organization"
+        required: false
+
+      - label: Status
+        name: status
+        widget: select
+        options:
+          - label: Draft
+            value: draft
+          - label: Published
+            value: published
+        default: draft
