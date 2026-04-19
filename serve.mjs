@@ -40,11 +40,14 @@ const MIME = {
 };
 
 const server = http.createServer(async (req, res) => {
+  // Strip query string from URL
+  const pathname = req.url.split('?')[0];
+
   // Handle /admin/* at root level
-  if (req.url.startsWith('/admin')) {
-    let filePath = req.url === '/admin' || req.url === '/admin/'
+  if (pathname.startsWith('/admin')) {
+    let filePath = pathname === '/admin' || pathname === '/admin/'
       ? path.join(ADMIN_DIR, 'index.html')
-      : path.join(ADMIN_DIR, req.url.slice(7)); // Remove '/admin/' prefix
+      : path.join(ADMIN_DIR, pathname.slice(7)); // Remove '/admin/' prefix
 
     // Prevent path traversal
     if (!filePath.startsWith(ADMIN_DIR)) {
@@ -67,8 +70,8 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Handle /assets/ at root level
-  if (req.url.startsWith('/assets/')) {
-    let filePath = path.join(ASSETS_DIR, req.url.slice(8)); // Remove '/assets/' prefix
+  if (pathname.startsWith('/assets/')) {
+    let filePath = path.join(ASSETS_DIR, pathname.slice(8)); // Remove '/assets/' prefix
 
     // Prevent path traversal
     if (!filePath.startsWith(ASSETS_DIR)) {
@@ -93,7 +96,7 @@ const server = http.createServer(async (req, res) => {
   const host = req.headers.host || '';
   const slug = host.split('.')[0].split(':')[0]; // "lowdrama" from "lowdrama.localhost:3000"
 
-  let filePath = path.join(SITES_DIR, slug, req.url === '/' ? 'index.html' : req.url);
+  let filePath = path.join(SITES_DIR, slug, pathname === '/' ? 'index.html' : pathname);
 
   // Prevent path traversal
   if (!filePath.startsWith(SITES_DIR)) {
