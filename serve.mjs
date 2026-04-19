@@ -23,6 +23,9 @@ const MIME = {
   '.css':  'text/css',
   '.js':   'application/javascript',
   '.json': 'application/json',
+  '.yml':  'text/yaml',
+  '.yaml': 'text/yaml',
+  '.md':   'text/markdown',
   '.png':  'image/png',
   '.jpg':  'image/jpeg',
   '.jpeg': 'image/jpeg',
@@ -37,15 +40,28 @@ const MIME = {
 };
 
 const server = http.createServer(async (req, res) => {
-  // Handle /admin at root level
-  if (req.url === '/admin' || req.url === '/admin/') {
+  // Handle /admin/* at root level
+  if (req.url.startsWith('/admin')) {
+    let filePath = req.url === '/admin' || req.url === '/admin/'
+      ? path.join(ADMIN_DIR, 'index.html')
+      : path.join(ADMIN_DIR, req.url.slice(7)); // Remove '/admin/' prefix
+
+    // Prevent path traversal
+    if (!filePath.startsWith(ADMIN_DIR)) {
+      res.writeHead(403); res.end('Forbidden'); return;
+    }
+
     try {
-      const content = await fs.readFile(path.join(ADMIN_DIR, 'index.html'));
-      res.writeHead(200, { 'Content-Type': 'text/html' });
+      const stat = await fs.stat(filePath);
+      if (stat.isDirectory()) filePath = path.join(filePath, 'index.html');
+
+      const content = await fs.readFile(filePath);
+      const ext = path.extname(filePath);
+      res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
       res.end(content);
     } catch {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('Admin not found');
+      res.end('Admin file not found');
     }
     return;
   }
