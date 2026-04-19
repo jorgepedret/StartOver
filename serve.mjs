@@ -15,6 +15,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITES_DIR = path.join(__dirname, 'sites');
 const ASSETS_DIR = path.join(__dirname, 'assets');
+const ADMIN_DIR = path.join(__dirname, 'admin');
 const PORT = 3000;
 
 const MIME = {
@@ -36,6 +37,19 @@ const MIME = {
 };
 
 const server = http.createServer(async (req, res) => {
+  // Handle /admin at root level
+  if (req.url === '/admin' || req.url === '/admin/') {
+    try {
+      const content = await fs.readFile(path.join(ADMIN_DIR, 'index.html'));
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(content);
+    } catch {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Admin not found');
+    }
+    return;
+  }
+
   // Handle /assets/ at root level
   if (req.url.startsWith('/assets/')) {
     let filePath = path.join(ASSETS_DIR, req.url.slice(8)); // Remove '/assets/' prefix
