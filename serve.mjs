@@ -40,8 +40,66 @@ const MIME = {
 };
 
 const server = http.createServer(async (req, res) => {
+  // Enable CORS for API
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+
   // Strip query string from URL
   const pathname = req.url.split('?')[0];
+
+  // Handle /api/pages/* - API endpoints for editor
+  if (pathname.startsWith('/api/pages/')) {
+    const slug = pathname.slice(11); // Remove '/api/pages/' prefix
+
+    if (req.method === 'GET') {
+      // Read page data
+      try {
+        const htmlPath = path.join(SITES_DIR, slug || 'example-site', 'index.html');
+        if (!htmlPath.startsWith(SITES_DIR)) {
+          res.writeHead(403); res.end('Forbidden'); return;
+        }
+        const content = await fs.readFile(htmlPath, 'utf-8');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ html: content, slug: slug || 'example-site' }));
+      } catch (e) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Page not found' }));
+      }
+      return;
+    } else if (req.method === 'POST' || req.method === 'PUT') {
+      // Write page data
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const data = JSON.parse(body);
+          const siteSlug = slug || data.slug || 'example-site';
+          const siteDir = path.join(SITES_DIR, siteSlug);
+
+          if (!siteDir.startsWith(SITES_DIR)) {
+            res.writeHead(403); res.end('Forbidden'); return;
+          }
+
+          await fs.mkdir(siteDir, { recursive: true });
+          await fs.writeFile(path.join(siteDir, 'index.html'), data.html);
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, slug: siteSlug }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: e.message }));
+        }
+      });
+      return;
+    }
+  }
 
   // Handle /admin/* at root level
   if (pathname.startsWith('/admin')) {
@@ -55,7 +113,19 @@ const server = http.createServer(async (req, res) => {
     }
 
     try {
-      const stat = await fs.stat(filePath);
+      let stat;
+      try {
+        stat = await fs.stat(filePath);
+      } catch {
+        // Try adding .html extension if file not found and no extension
+        if (!path.extname(filePath)) {
+          filePath += '.html';
+          stat = await fs.stat(filePath);
+        } else {
+          throw new Error('Not found');
+        }
+      }
+
       if (stat.isDirectory()) filePath = path.join(filePath, 'index.html');
 
       const content = await fs.readFile(filePath);
