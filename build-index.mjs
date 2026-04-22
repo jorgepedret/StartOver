@@ -98,14 +98,14 @@ async function main() {
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --border: #1e1e2e;
-      --accent: #7fffb2;
-      --accent2: #ff7f7f;
-      --text: #e8e8f0;
-      --muted: #6060a0;
-      --card-hover: #1a1a2a;
+      --bg: #f5f4f0;
+      --surface: #eeede8;
+      --border: #dddbd3;
+      --accent: #e79d2e;
+      --accent2: #c0392b;
+      --text: #1a1a1a;
+      --muted: #888880;
+      --card-hover: #eceae3;
     }
 
     html { scroll-behavior: smooth; }
@@ -124,8 +124,8 @@ async function main() {
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(127,255,178,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(127,255,178,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
       background-size: 40px 40px;
       pointer-events: none;
       z-index: 0;
@@ -156,10 +156,11 @@ async function main() {
 
     h1 {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(48px, 8vw, 96px);
+      font-size: clamp(72px, 12vw, 140px);
       font-weight: 800;
       line-height: 0.9;
-      letter-spacing: -0.02em;
+      letter-spacing: 0;
+      text-transform: uppercase;
       margin-bottom: 24px;
     }
 
@@ -210,6 +211,7 @@ async function main() {
       background: var(--bg);
       z-index: 10;
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
     .search-inner {
@@ -345,8 +347,9 @@ async function main() {
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
-      background: var(--bg);
+      background: var(--surface);
       border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border);
     }
 
     /* Hidden card */
